@@ -1,25 +1,26 @@
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { languages } from '../../data/mockData'; // Import languages from data
 import './Navbar.css';
 
 const Navbar = () => {
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState('EN');
   const dropdownRef = useRef(null);
 
-  const languages = [
-    { code: 'EN', label: 'English', native: 'English' },
-    { code: 'AR', label: 'Arabic', native: 'العربية' },
-    { code: 'HE', label: 'Hebrew', native: 'עברית' }
-  ];
-
   const handleLanguageChange = (langCode) => {
-    setCurrentLang(langCode);
+    i18n.changeLanguage(langCode);
     setIsOpen(false);
-    // Add logic here to actually change app language
-    console.log(`Language changed to: ${langCode}`);
   };
 
-  // Close dropdown when clicking outside
+  // Sync direction (RTL/LTR) with language
+  useEffect(() => {
+    const currentLang = languages.find(l => l.code === i18n.language) || languages[0];
+    document.documentElement.dir = currentLang.dir;
+    document.documentElement.lang = currentLang.code;
+  }, [i18n.language]);
+
+  // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -34,10 +35,9 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         
-        {/* === BRAND IDENTITY === */}
+        {/* === BRAND === */}
         <a href="/" className="navbar-brand">
           <div className="brand-icon-wrapper">
-            {/* Custom Scissors Icon */}
             <svg className="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <circle cx="6" cy="6" r="3" strokeWidth="2"/>
               <circle cx="6" cy="18" r="3" strokeWidth="2"/>
@@ -47,40 +47,40 @@ const Navbar = () => {
           </div>
           <div className="brand-text">
             <span className="brand-main">TOURKI</span>
-            <span className="brand-tagline">Barber Shop</span>
+            {/* Translated Tagline */}
+            <span className="brand-tagline">{t('navbar.tagline')}</span>
           </div>
         </a>
 
-        {/* === LANGUAGE DROPDOWN === */}
+        {/* === LANGUAGE SWITCHER === */}
         <div className="lang-dropdown-container" ref={dropdownRef}>
-          
-          {/* Trigger Button */}
           <button 
             className={`lang-trigger-btn ${isOpen ? 'open' : ''}`}
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Select Language"
+            aria-label={t('navbar.selectLanguage')}
           >
             <svg className="globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="10"/>
               <line x1="2" y1="12" x2="22" y2="12"/>
               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
             </svg>
-            <span className="selected-lang-code">{currentLang}</span>
+            <span className="selected-lang-code">
+              {i18n.language ? i18n.language.toUpperCase() : 'EN'}
+            </span>
             <svg className="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M6 9l6 6 6-6"/>
             </svg>
           </button>
 
-          {/* Dropdown Menu */}
           <div className={`lang-menu ${isOpen ? 'visible' : ''}`}>
             {languages.map((lang) => (
               <button
                 key={lang.code}
-                className={`lang-option ${currentLang === lang.code ? 'active' : ''}`}
+                className={`lang-option ${i18n.language === lang.code ? 'active' : ''}`}
                 onClick={() => handleLanguageChange(lang.code)}
               >
                 <span className="lang-label">{lang.native}</span>
-                {currentLang === lang.code && (
+                {i18n.language === lang.code && (
                   <svg className="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
@@ -88,7 +88,6 @@ const Navbar = () => {
               </button>
             ))}
           </div>
-
         </div>
 
       </div>

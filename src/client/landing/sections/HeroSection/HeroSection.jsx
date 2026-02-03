@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // Import Hook
 import './HeroSection.css';
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation(); // Init Hook
 
   const handleBookNow = () => {
     navigate('/booking');
@@ -10,25 +12,18 @@ const HeroSection = () => {
 
   const handleScrollToNextSection = () => {
     const nextSection = document.getElementById('explore');
-
     if (nextSection) {
-      nextSection.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
+      nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   return (
     <section className="hero-section">
-      {/* Background Layer */}
       <div className="hero-background">
         <div className="hero-overlay"></div>
       </div>
 
-      {/* Content Layer */}
       <div className="hero-content">
-
         {/* 1. Main Title */}
         <div className="hero-title-container">
           <h1 className="hero-title">
@@ -49,22 +44,26 @@ const HeroSection = () => {
             </svg>
           </h1>
 
-          {/* 2. Subtitle */}
+          {/* 2. Subtitle - Translated */}
           <p className="hero-subtitle">
-            Professional Barber Shop in Reneh Main Street
+            {t('hero.subtitle')}
           </p>
         </div>
 
-        {/* 3. CTA Button */}
+        {/* 3. CTA Button - Translated */}
         <div className="hero-button-container">
           <button className="hero-cta-button" onClick={handleBookNow}>
-            <span className="button-text">BOOK NOW</span>
-            <span className="button-arrow">→</span>
+            <span className="button-text">{t('hero.bookBtn')}</span>
+            <span className="button-arrow">
+              {/* Flip arrow for RTL languages if needed, usually CSS handles this, 
+                  but for simplicity we keep the arrow direction or use a neutral icon */}
+              {document.dir === 'rtl' ? '←' : '→'}
+            </span>
             <span className="button-shimmer"></span>
           </button>
         </div>
 
-        {/* 4. Scroll Indicator */}
+        {/* 4. Scroll Indicator - Translated */}
         <div
           className="hero-scroll-indicator"
           onClick={handleScrollToNextSection}
@@ -76,7 +75,7 @@ const HeroSection = () => {
               <path d="M12 5v14M19 12l-7 7-7-7" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <span className="scroll-text">Scroll to explore</span>
+          <span className="scroll-text">{t('hero.scrollText')}</span>
         </div>
 
       </div>

@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next'; // Import Hook
 import './Footer.css';
 
 const Footer = () => {
+  const { t } = useTranslation(); // Init Hook
   const currentYear = new Date().getFullYear();
 
   return (
@@ -23,7 +25,7 @@ const Footer = () => {
               </div>
               <div className="footer-brand-text">
                 <h2>TOURKI</h2>
-                <p>Barber Shop</p>
+                <p>{t('footer.tagline')}</p>
               </div>
             </div>
             
@@ -32,13 +34,13 @@ const Footer = () => {
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                 <circle cx="12" cy="10" r="3"/>
               </svg>
-              <span>Reneh Main Street, Nazareth</span>
+              <span>{t('footer.address')}</span>
             </div>
           </div>
 
           {/* 2. SOCIAL CONNECTIVITY */}
           <div className="footer-social-section">
-            <span className="social-title">Follow Us On Social Media</span>
+            <span className="social-title">{t('footer.followUs')}</span>
             <div className="social-icons-grid">
               
               {/* Instagram */}
@@ -72,11 +74,12 @@ const Footer = () => {
         {/* === LOWER DECK: COPYRIGHT === */}
         <div className="footer-bottom">
           <span className="copyright-text">
-            © {currentYear} Tourki Barber Shop. All rights reserved.
+             {/* Using interpolation for the year */}
+            {t('footer.copyright', { year: currentYear })}
           </span>
           <div className="footer-legal-links">
-            <span className="legal-link">Privacy Policy</span>
-            <span className="legal-link">Terms of Service</span>
+            <span className="legal-link">{t('footer.privacy')}</span>
+            <span className="legal-link">{t('footer.terms')}</span>
           </div>
         </div>
 
