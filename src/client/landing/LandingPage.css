@@ -1,0 +1,20 @@
+/* ============================================
+   LANDING PAGE CONTAINER
+   ============================================ */
+
+.landing-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure sections flow properly */
+.landing-page > section {
+  width: 100%;
+}

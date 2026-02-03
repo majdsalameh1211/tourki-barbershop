@@ -1,0 +1,262 @@
+/* ============================================
+   NAVBAR - MASTER DESIGNER LEVEL
+   ============================================ */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  
+  /* Advanced Glassmorphism */
+  background: rgba(31, 41, 55, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 
+    0 4px 30px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.05);
+    
+  transition: all 0.3s ease;
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 80px; /* Slightly taller for elegance */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ============================================
+   BRAND IDENTITY
+   ============================================ */
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  group: 1;
+}
+
+/* Icon Container */
+.brand-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Golden Gradient Border Effect */
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 12px;
+  
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-brand:hover .brand-icon-wrapper {
+  transform: rotate(-10deg) scale(1.05);
+  border-color: #D4AF37;
+  background: rgba(212, 175, 55, 0.25);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.brand-icon {
+  width: 24px;
+  height: 24px;
+  color: #D4AF37;
+  transition: transform 0.4s ease;
+}
+
+/* Text Identity */
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-main {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #FFFFFF;
+  line-height: 1;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.brand-tagline {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  color: #D4AF37; /* Gold accent */
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* ============================================
+   LANGUAGE DROPDOWN (NEW)
+   ============================================ */
+
+.lang-dropdown-container {
+  position: relative;
+}
+
+/* The Trigger Button (Globe) */
+.lang-trigger-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.6rem 1rem;
+  border-radius: 50px; /* Pill shape */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #E5E7EB;
+}
+
+.lang-trigger-btn:hover,
+.lang-trigger-btn.open {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: #D4AF37;
+  color: #D4AF37;
+}
+
+.globe-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.chevron-icon {
+  width: 14px;
+  height: 14px;
+  opacity: 0.7;
+  transition: transform 0.3s ease;
+}
+
+.lang-trigger-btn.open .chevron-icon {
+  transform: rotate(180deg);
+}
+
+/* The Dropdown Menu */
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 160px;
+  
+  background: rgba(31, 41, 55, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  
+  /* Animation State: Hidden */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.95);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  box-shadow: 
+    0 10px 40px rgba(0,0,0,0.2),
+    0 0 0 1px rgba(255,255,255,0.05);
+  
+  z-index: 100;
+}
+
+/* Animation State: Open */
+.lang-menu.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Menu Items */
+.lang-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space for checkmark */
+  width: 100%;
+  padding: 0.75rem 1rem;
+  
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  
+  color: #E5E7EB;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+  
+  transition: all 0.2s ease;
+}
+
+.lang-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+
+.lang-option.active {
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.15), transparent);
+  color: #D4AF37;
+  font-weight: 700;
+}
+
+.check-icon {
+  width: 16px;
+  height: 16px;
+  color: #D4AF37;
+}
+
+/* ============================================
+   RESPONSIVE MOBILE
+   ============================================ */
+
+
+@media (max-width: 768px) {
+  .navbar-container {
+    height: 70px;
+    padding: 0 1rem;
+  }
+  
+  /* 1. CHANGE THIS: We enabled the text display */
+  .brand-text {
+    display: flex; /* Was 'none' before */
+  }
+
+  /* 2. SCALE DOWN: Make text smaller to fit phone screens */
+  .brand-main {
+    font-size: 1.1rem; /* Smaller font */
+  }
+  
+  .brand-tagline {
+    font-size: 0.5rem; /* Smaller tagline */
+    letter-spacing: 1.5px;
+  }
+
+  /* Adjust icon size */
+  .brand-icon-wrapper {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .brand-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Adjust language button padding */
+  .lang-trigger-btn {
+    padding: 0.4rem;
+  }
+}

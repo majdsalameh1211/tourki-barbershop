@@ -1,0 +1,174 @@
+/* ============================================
+   HERO SECTION - DYNAMIC & RESPONSIVE
+   ============================================ */
+
+/* Desktop & large screens only */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - var(--navbar-height, 80px));
+
+  /* IMPORTANT: never force the hero taller than the available desktop viewport */
+  min-height: min(600px, calc(100vh - var(--navbar-height, 80px)));
+
+  overflow: hidden;
+}
+
+
+
+/* Background & Overlay */
+.hero-background {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+  background: url('/background_hero.jpg') center / 110% no-repeat;
+  animation: subtleZoom 20s ease-in-out infinite alternate;
+}
+
+
+.hero-overlay {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(31, 41, 55, 0.8) 100%);
+}
+
+.hero-content {
+  position: static; width: 100%; height: 100%; z-index: 10;
+}
+
+/* ============================================
+   PERCENTAGE POSITIONS (Standard Screens)
+   ============================================ */
+
+/* 1. MAIN TITLE */
+.hero-title {
+  position: absolute;
+  bottom: 70%; /* High position */
+  left: 0; right: 0; margin: 0 auto; width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+  z-index: 20;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* 2. SUBTITLE */
+.hero-subtitle {
+  position: absolute;
+  bottom: 60%; /* 10% gap from title */
+  left: 0; right: 0; margin: 0 auto; width: 100%;
+  text-align: center;
+  z-index: 20;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* 3. CTA BUTTON */
+.hero-cta-button {
+  position: absolute;
+  bottom: 30%; /* Centered in the bottom half */
+  left: 0; right: 0; margin: 0 auto; width: fit-content;
+  z-index: 20;
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+  
+  /* Visuals */
+  padding: 1.25rem 3.5rem;
+  display: inline-flex; align-items: center; justify-content: center; gap: 1rem;
+  border-radius: 50px; border: none; cursor: pointer; overflow: hidden;
+  background: linear-gradient(90deg, #D4AF37 0%, #F0D078 50%, #D4AF37 100%);
+  background-size: 200% auto;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  
+  /* Text Styles */
+  font-size: 1.25rem; font-weight: 700; color: #1F2937; letter-spacing: 1.5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 4. SCROLL INDICATOR */
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 8%; /* Near the bottom edge */
+  left: 0; right: 0; margin: 0 auto; width: fit-content;
+  z-index: 20;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  cursor: pointer;
+  animation: fadeIn 1s ease-out 1s both;
+  transition: transform 0.3s ease;
+}
+
+/* ============================================
+   THE "SAFE FIT" FIX (Media Queries)
+   ============================================ */
+
+/* LAPTOP FIX:
+   If the screen is "Short" (less than 800px tall), we shift the percentages
+   UP slightly so the button doesn't get cut off at the bottom.
+*/
+@media (max-height: 800px) and (min-width: 768px) {
+  
+  /* Move Title & Subtitle slightly up to make room */
+  .hero-title    { bottom: 68%; }
+  .hero-subtitle { bottom: 58%; }
+
+  /* CRITICAL: Move Button UP to avoid being cut off */
+  .hero-cta-button { 
+    bottom: 28%; 
+    padding: 1rem 3rem; /* Make button slightly smaller to fit better */
+  }
+
+  /* Move Scroll Indicator UP into the safe zone */
+  .hero-scroll-indicator { bottom: 5%; }
+}
+
+/* ============================================
+   STYLING DETAILS (Text, Icons, Etc.)
+   ============================================ */
+
+.hero-title-text {
+  /* Clamp makes font size dynamic based on width: Min 3rem, Max 4.5rem */
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: 800; letter-spacing: 10px; line-height: 1;
+  background: linear-gradient(135deg, #D4AF37 0%, #F0D078 50%, #D4AF37 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  filter: drop-shadow(0 8px 16px rgba(212, 175, 55, 0.4));
+  animation: gradientShift 4s ease infinite;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem; font-weight: 300; letter-spacing: 2px; color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-scissors-inline {
+  width: 42px; height: 42px; color: #D4AF37;
+  filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.4));
+}
+.scissors-left { animation: gentleFloat 3s ease-in-out infinite; }
+.scissors-right { animation: gentleFloatFlipped 3s ease-in-out infinite 1.5s; }
+
+.hero-cta-button:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6); background-position: 100% center; }
+.hero-scroll-indicator:hover { transform: translateY(-5px); opacity: 1; }
+.scroll-icon { width: 36px; height: 36px; color: #D4AF37; animation: bounce 2s ease-in-out infinite; }
+.scroll-text { font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; color: #D4AF37; text-transform: uppercase; }
+.button-shimmer { position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.5) 50%, transparent 100%); transform: skewX(-20deg); animation: shimmer 3s infinite; }
+
+/* Animations */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes shimmer { 0% { left: -100%; } 100% { left: 200%; } }
+@keyframes gentleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes gentleFloatFlipped { 0%, 100% { transform: scaleX(-1) translateY(0); } 50% { transform: scaleX(-1) translateY(-8px); } }
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+@keyframes subtleZoom { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+@keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+/* Mobile (Unchanged) */
+@media (max-width: 768px) {
+  .hero-section { height: 100dvh; }
+  .hero-title { bottom: 65%; gap: 1rem; }
+  .hero-subtitle { bottom: 58%; }
+  .hero-cta-button { bottom: 28%; }
+  .hero-title-text { font-size: 2.5rem; letter-spacing: 4px; }
+  .hero-scissors-inline { width: 32px; height: 32px; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { bottom: 65%; }
+  .hero-subtitle { bottom: 55%; font-size: 1rem; padding: 0 2rem; }
+  .hero-cta-button { bottom: 25%; width: 85%; padding: 1.15rem 0; font-size: 1.1rem; justify-content: center; }
+  .hero-title-text { font-size: 2rem; letter-spacing: 3px; }
+  .hero-scroll-indicator { bottom: 10%; }
+}
