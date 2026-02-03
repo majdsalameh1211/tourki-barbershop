@@ -15,11 +15,11 @@
 }
 
 
-/* Background & Overlay (Desktop improvement only) */
+/* Background & Overlay (Unchanged) */
 .hero-background {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-  background: url('/hero-bg.jpg') center / 110% no-repeat;
+  background: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1920&q=80') center/cover no-repeat;
   animation: subtleZoom 20s ease-in-out infinite alternate;
 }
 
