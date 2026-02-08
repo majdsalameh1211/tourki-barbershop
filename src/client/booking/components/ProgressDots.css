@@ -1,0 +1,150 @@
+/* ============================================
+   PROGRESS DOTS - ELEGANT 5-STEP INDICATOR
+   ============================================ */
+
+.progress-dots-container {
+  height: 50px;
+  flex-shrink: 0;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  
+  padding: 0 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.progress-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === DOT CIRCLE === */
+.dot-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  font-size: 0.85rem;
+  font-weight: 700;
+  
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+/* === STATES === */
+
+/* Completed */
+.progress-dot.completed .dot-circle {
+  background: #D4AF37;
+  color: #FFFFFF;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.progress-dot.completed .dot-circle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.progress-dot.completed .dot-label {
+  color: #D4AF37;
+  font-weight: 700;
+}
+
+/* Active */
+.progress-dot.active .dot-circle {
+  background: linear-gradient(135deg, #D4AF37, #F0D078);
+  color: #FFFFFF;
+  box-shadow: 
+    0 0 20px rgba(212, 175, 55, 0.6),
+    0 4px 15px rgba(212, 175, 55, 0.3);
+  transform: scale(1.15);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.progress-dot.active .dot-label {
+  color: #D4AF37;
+  font-weight: 800;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 4px 15px rgba(212, 175, 55, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.8), 0 4px 20px rgba(212, 175, 55, 0.5); }
+}
+
+/* Upcoming */
+.progress-dot.upcoming .dot-circle {
+  background: #E5E7EB;
+  color: #9CA3AF;
+  border: 2px solid #D1D5DB;
+}
+
+.progress-dot.upcoming .dot-label {
+  color: #9CA3AF;
+}
+
+/* === LABELS === */
+.dot-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  
+  transition: all 0.3s ease;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .progress-dots-container {
+    height: 40px;
+    gap: 0.5rem;
+  }
+  
+  .dot-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+  
+  .progress-dot.completed .dot-circle svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .progress-dot.active .dot-circle {
+    transform: scale(1.1);
+  }
+  
+  .dot-label {
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .progress-dots-container {
+    gap: 0.35rem;
+  }
+  
+  .dot-circle {
+    width: 26px;
+    height: 26px;
+    font-size: 0.7rem;
+  }
+  
+  .dot-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.3px;
+  }
+}

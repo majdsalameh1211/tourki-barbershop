@@ -2,6 +2,7 @@ import HeroSection from './sections/HeroSection/HeroSection';
 import MainContentSection from './sections/MainContentSection/MainContentSection';
 import './LandingPage.css';
 
+
 const LandingPage = () => {
   return (
     <div className="landing-page">
