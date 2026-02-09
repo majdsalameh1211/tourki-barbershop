@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mockData } from '../../../../data/mockData';
-import './TimeSlots.css';
+import './Timeslots.css';
 
 /**
  * Reusable TimeSlots Component
