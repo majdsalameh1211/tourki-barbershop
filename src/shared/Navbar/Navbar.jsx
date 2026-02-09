@@ -32,7 +32,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="navbar">
+    <nav className="navbar"dir="ltr">
       <div className="navbar-container">
         
         {/* === BRAND === */}
