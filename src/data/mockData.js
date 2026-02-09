@@ -1,4 +1,4 @@
-// mockData.js - Complete with 5-step booking translations
+// mockData.js - Updated for 4-Step Viewport Flow
 export const mockData = {
   businessInfo: {
     name: "Tourki",
@@ -18,9 +18,9 @@ export const mockData = {
   },
   
   services: [
-    { id: 1, name: "Haircut", price: 50, icon: "✂️" },
-    { id: 2, name: "Haircut + Beard", price: 80, icon: "💈" },
-    { id: 3, name: "Beard Trim", price: 35, icon: "🪒" }
+    { id: 1, name: "Haircut", price: 50, icon: "✂️", duration: 45 },
+    { id: 2, name: "Haircut + Beard", price: 80, icon: "💈", duration: 60 },
+    { id: 3, name: "Beard Trim", price: 35, icon: "🪒", duration: 30 }
   ],
 
   timeSlots: {
@@ -29,7 +29,7 @@ export const mockData = {
       { id: 2, start: "10:45", end: "11:30", isBookable: true },
       { id: 3, start: "11:30", end: "12:15", isBookable: true },
       { id: 4, start: "12:15", end: "13:00", isBookable: true },
-      { id: 5, start: "13:00", end: "15:30", isBookable: false },
+      { id: 5, start: "13:00", end: "15:30", isBookable: false }, // Break
       { id: 6, start: "15:30", end: "16:15", isBookable: true },
       { id: 7, start: "16:15", end: "17:00", isBookable: true },
       { id: 8, start: "17:00", end: "17:45", isBookable: true },
@@ -91,36 +91,36 @@ export const translationResources = {
       booking: {
         pageTitle: "Book Your Appointment",
         steps: {
-          service: "Service",
           date: "Date",
           time: "Time",
           info: "Info",
           confirm: "Confirm"
         },
         step1: {
-          title: "Choose Your Service",
-          select: "Select"
-        },
-        step2: {
           title: "Pick Your Date",
           selected: "Selected"
         },
-        step3: {
+        step2: {
           title: "Pick Your Time",
           selected: "Selected",
-          noSlots: "No available slots for this date"
+          noSlots: "No available slots for this date",
+          tryAnother: "Please select a different date"
+        },
+        step3: {
+          title: "Your Information",
+          subtitle: "Almost there! Just a few more details.",
+          fullName: "Full Name",
+          namePlaceholder: "Enter your name",
+          nameError: "Name must be at least 2 characters",
+          phoneNumber: "Phone Number",
+          phoneHint: "Israeli format: 05X-XXX-XXXX",
+          whatsappCheck: "I have WhatsApp on this number",
+          warningTitle: "Important Notice",
+          whatsappWarn: "Without WhatsApp, you won't receive booking updates and confirmations."
         },
         step4: {
           title: "Almost Done!",
-          fullName: "Full Name",
-          phoneNumber: "Phone Number",
-          whatsappCheck: "I have WhatsApp on this number",
-          whatsappWarn: "⚠️ Without WhatsApp, you won't receive updates."
-        },
-        step5: {
-          title: "Confirm Your Booking",
-          summary: "Summary",
-          service: "Service",
+          summary: "Booking Summary",
           date: "Date",
           time: "Time",
           name: "Name",
@@ -128,12 +128,15 @@ export const translationResources = {
           whatsapp: "WhatsApp",
           yes: "Yes",
           no: "No",
-          info: "Your booking will be reviewed shortly",
-          back: "← Back"
+          whatNext: "What happens next?",
+          reviewInfo: "Your booking will be reviewed by the owner",
+          whatsappInfo: "You'll receive a confirmation via WhatsApp shortly",
+          reservedInfo: "This time slot is now reserved for you"
         },
         buttons: {
           next: "Next",
-          confirm: "Confirm",
+          prev: "Back",
+          confirm: "Confirm Booking",
           backHome: "Back to Home"
         },
         success: {
@@ -180,26 +183,36 @@ export const translationResources = {
       booking: {
         pageTitle: "احجز موعدك",
         steps: {
-          service: "الخدمة",
           date: "التاريخ",
           time: "الوقت",
-          info: "المعلومات",
+          info: "بياناتك",
           confirm: "التأكيد"
         },
-        step1: { title: "اختر خدمتك", select: "اختر" },
-        step2: { title: "اختر التاريخ", selected: "المحدد" },
-        step3: { title: "اختر الوقت", selected: "المحدد", noSlots: "لا توجد مواعيد" },
-        step4: {
-          title: "أوشكت على الانتهاء!",
-          fullName: "الاسم الكامل",
-          phoneNumber: "رقم الهاتف",
-          whatsappCheck: "لدي واتساب",
-          whatsappWarn: "⚠️ بدون واتساب لن تتلقى التحديثات."
+        step1: {
+          title: "اختر التاريخ",
+          selected: "المحدد"
         },
-        step5: {
-          title: "أكد حجزك",
-          summary: "ملخص",
-          service: "الخدمة",
+        step2: {
+          title: "اختر الوقت",
+          selected: "المحدد",
+          noSlots: "لا توجد مواعيد متاحة لهذا التاريخ",
+          tryAnother: "يرجى اختيار تاريخ آخر"
+        },
+        step3: {
+          title: "بياناتك الشخصية",
+          subtitle: "أوشكنا على الانتهاء! بضع تفاصيل فقط.",
+          fullName: "الاسم الكامل",
+          namePlaceholder: "أدخل اسمك",
+          nameError: "يجب أن يتكون الاسم من حرفين على الأقل",
+          phoneNumber: "رقم الهاتف",
+          phoneHint: "تنسيق: 05X-XXX-XXXX",
+          whatsappCheck: "لدي واتساب على هذا الرقم",
+          warningTitle: "ملاحظة مهمة",
+          whatsappWarn: "بدون واتساب لن تتلقى تحديثات وتأكيدات الحجز."
+        },
+        step4: {
+          title: "مراجعة نهائية",
+          summary: "ملخص الحجز",
           date: "التاريخ",
           time: "الوقت",
           name: "الاسم",
@@ -207,13 +220,20 @@ export const translationResources = {
           whatsapp: "واتساب",
           yes: "نعم",
           no: "لا",
-          info: "سيتم مراجعة حجزك قريباً",
-          back: "← رجوع"
+          whatNext: "ماذا يحدث بعد ذلك؟",
+          reviewInfo: "سيقوم صاحب الصالون بمراجعة حجزك",
+          whatsappInfo: "ستتلقى تأكيداً عبر واتساب قريباً",
+          reservedInfo: "هذا الوقت محجوز لك الآن"
         },
-        buttons: { next: "التالي", confirm: "تأكيد", backHome: "العودة" },
+        buttons: {
+          next: "التالي",
+          prev: "السابق",
+          confirm: "تأكيد الحجز",
+          backHome: "العودة للرئيسية"
+        },
         success: {
-          title: "نجح!",
-          message: "تم إرسال حجزك",
+          title: "تم بنجاح!",
+          message: "تم إرسال طلب الحجز الخاص بك",
           whatsapp: "أرسلنا لك تأكيداً عبر واتساب.",
           bookingId: "رقم الحجز"
         }
@@ -255,26 +275,36 @@ export const translationResources = {
       booking: {
         pageTitle: "קבע תור",
         steps: {
-          service: "שירות",
           date: "תאריך",
           time: "שעה",
           info: "פרטים",
           confirm: "אישור"
         },
-        step1: { title: "בחר שירות", select: "בחר" },
-        step2: { title: "בחר תאריך", selected: "נבחר" },
-        step3: { title: "בחר שעה", selected: "נבחר", noSlots: "אין תורים פנויים" },
-        step4: {
-          title: "כמעט סיימנו!",
-          fullName: "שם מלא",
-          phoneNumber: "מספר טלפון",
-          whatsappCheck: "יש לי וואטסאפ",
-          whatsappWarn: "⚠️ בלי וואטסאפ לא תקבל עדכונים."
+        step1: {
+          title: "בחר תאריך",
+          selected: "נבחר"
         },
-        step5: {
-          title: "אשר את התור",
-          summary: "סיכום",
-          service: "שירות",
+        step2: {
+          title: "בחר שעה",
+          selected: "נבחר",
+          noSlots: "אין תורים פנויים לתאריך זה",
+          tryAnother: "אנא בחר תאריך אחר"
+        },
+        step3: {
+          title: "הפרטים שלך",
+          subtitle: "כמעט סיימנו! רק עוד כמה פרטים.",
+          fullName: "שם מלא",
+          namePlaceholder: "הכנס את שמך",
+          nameError: "השם חייב להכיל לפחות 2 תווים",
+          phoneNumber: "מספר טלפון",
+          phoneHint: "פורמט: 05X-XXX-XXXX",
+          whatsappCheck: "יש לי וואטסאפ במספר זה",
+          warningTitle: "שים לב",
+          whatsappWarn: "בלי וואטסאפ לא תוכל לקבל עדכונים ואישורי הגעה."
+        },
+        step4: {
+          title: "אישור סופי",
+          summary: "סיכום הזמנה",
           date: "תאריך",
           time: "שעה",
           name: "שם",
@@ -282,13 +312,20 @@ export const translationResources = {
           whatsapp: "וואטסאפ",
           yes: "כן",
           no: "לא",
-          info: "התור שלך יאושר בקרוב",
-          back: "← חזור"
+          whatNext: "מה קורה עכשיו?",
+          reviewInfo: "ההזמנה שלך תועבר לאישור",
+          whatsappInfo: "תקבל אישור הזמנה בוואטסאפ בקרוב",
+          reservedInfo: "התור נשמר עבורך כעת"
         },
-        buttons: { next: "הבא", confirm: "אשר", backHome: "חזרה" },
+        buttons: {
+          next: "הבא",
+          prev: "הקודם",
+          confirm: "אשר הזמנה",
+          backHome: "חזרה לדף הבית"
+        },
         success: {
           title: "הצלחה!",
-          message: "ההזמנה נשלחה",
+          message: "ההזמנה נשלחה בהצלחה",
           whatsapp: "שלחנו לך אישור בוואטסאפ.",
           bookingId: "מספר הזמנה"
         }

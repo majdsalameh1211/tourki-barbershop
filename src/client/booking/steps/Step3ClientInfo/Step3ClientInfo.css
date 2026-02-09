@@ -1,0 +1,539 @@
+/* ═══════════════════════════════════════════════════════════════
+   STEP 3: CLIENT INFO FORM - VIEWPORT FITTED
+   Tourki Barbershop Booking System
+   ═══════════════════════════════════════════════════════════════ */
+
+/* === STEP SUBTITLE === */
+.step-subtitle {
+  font-size: 0.9rem;
+  color: #6B7280;
+  text-align: center;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* === INFO FORM CONTAINER === */
+.info-form {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+/* === FORM GROUP === */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* === FORM LABEL === */
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #374151;
+  letter-spacing: 0.2px;
+}
+
+.label-icon {
+  width: 18px;
+  height: 18px;
+  color: #D4AF37;
+  flex-shrink: 0;
+}
+
+.required {
+  color: #EF4444;
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin-left: 0.1rem;
+}
+
+/* === FORM INPUT === */
+.form-input {
+  width: 100%;
+  height: 50px;
+  padding: 0 1rem;
+  border: 2px solid #E5E7EB;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1F2937;
+  background: #FFFFFF;
+  outline: none;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.form-input::placeholder {
+  color: #C4C9D2;
+  font-weight: 500;
+}
+
+.form-input:focus {
+  border-color: #D4AF37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+}
+
+.form-input:hover:not(:focus) {
+  border-color: #D1D5DB;
+}
+
+/* === FIELD HINT === */
+.field-hint {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  margin: 0;
+  padding-left: 0.25rem;
+  font-weight: 500;
+}
+
+.field-hint.error {
+  color: #EF4444;
+  font-weight: 600;
+}
+
+/* === CHECKBOX GROUP === */
+.checkbox-group {
+  padding: 0.15rem 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.checkbox-custom {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  border: 2px solid #D1D5DB;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.checkbox-input:checked + .checkbox-custom {
+  background: linear-gradient(135deg, #D4AF37, #F0D078);
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+.checkbox-custom .check-icon {
+  width: 14px;
+  height: 14px;
+  color: #FFFFFF;
+}
+
+.checkbox-text {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.whatsapp-icon {
+  width: 18px;
+  height: 18px;
+  color: #25D366;
+  flex-shrink: 0;
+}
+
+/* === WARNING BOX === */
+.warning-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.65rem 0.85rem;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.06), rgba(245, 158, 11, 0.03));
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 12px;
+}
+
+.warning-icon {
+  width: 20px;
+  height: 20px;
+  color: #F59E0B;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.warning-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.warning-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #92400E;
+  margin: 0;
+}
+
+.warning-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #A16207;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: LARGE DESKTOP (1440+)
+   ═══════════════════════════════════════════════════════════════ */
+@media (min-width: 1440px) {
+  .info-form {
+    max-width: 520px;
+    gap: 1rem;
+  }
+
+  .form-input {
+    height: 54px;
+    font-size: 1rem;
+    border-radius: 16px;
+  }
+
+  .form-label {
+    font-size: 0.9rem;
+  }
+
+  .step-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .warning-box {
+    padding: 0.75rem 1rem;
+    border-radius: 14px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: TABLET (768 - 1024)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .info-form {
+    max-width: 460px;
+    gap: 0.75rem;
+  }
+
+  .form-input {
+    height: 48px;
+    font-size: 0.92rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: MOBILE (481 - 768)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .step-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .info-form {
+    max-width: 100%;
+    gap: 0.7rem;
+  }
+
+  .form-label {
+    font-size: 0.8rem;
+    gap: 0.35rem;
+  }
+
+  .label-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .form-input {
+    height: 46px;
+    padding: 0 0.85rem;
+    font-size: 0.9rem;
+    border-radius: 12px;
+  }
+
+  .field-hint {
+    font-size: 0.7rem;
+  }
+
+  .checkbox-text {
+    font-size: 0.8rem;
+  }
+
+  .whatsapp-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .warning-box {
+    padding: 0.55rem 0.7rem;
+    border-radius: 10px;
+    gap: 0.5rem;
+  }
+
+  .warning-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .warning-title {
+    font-size: 0.75rem;
+  }
+
+  .warning-text {
+    font-size: 0.7rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: SMALL MOBILE (≤480)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .step-subtitle {
+    font-size: 0.78rem;
+  }
+
+  .info-form {
+    gap: 0.6rem;
+  }
+
+  .form-group {
+    gap: 0.2rem;
+  }
+
+  .form-label {
+    font-size: 0.78rem;
+  }
+
+  .label-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  .form-input {
+    height: 44px;
+    padding: 0 0.75rem;
+    font-size: 0.88rem;
+    border-radius: 11px;
+    border-width: 1.5px;
+  }
+
+  .form-input:focus {
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
+  }
+
+  .field-hint {
+    font-size: 0.68rem;
+    padding-left: 0.15rem;
+  }
+
+  .checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+  }
+
+  .checkbox-custom .check-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .checkbox-text {
+    font-size: 0.78rem;
+    gap: 0.3rem;
+  }
+
+  .whatsapp-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  .warning-box {
+    padding: 0.45rem 0.6rem;
+    border-radius: 9px;
+    gap: 0.4rem;
+  }
+
+  .warning-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .warning-title {
+    font-size: 0.72rem;
+  }
+
+  .warning-text {
+    font-size: 0.68rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: EXTRA SMALL (≤375 - iPhone SE)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 375px) {
+  .step-subtitle {
+    font-size: 0.72rem;
+  }
+
+  .info-form {
+    gap: 0.5rem;
+  }
+
+  .form-input {
+    height: 42px;
+    font-size: 0.85rem;
+    border-radius: 10px;
+  }
+
+  .form-label {
+    font-size: 0.75rem;
+  }
+
+  .checkbox-text {
+    font-size: 0.72rem;
+  }
+
+  .warning-box {
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: LANDSCAPE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .step-subtitle {
+    font-size: 0.7rem;
+  }
+
+  .info-form {
+    gap: 0.4rem;
+    max-width: 420px;
+  }
+
+  .form-group {
+    gap: 0.15rem;
+  }
+
+  .form-label {
+    font-size: 0.72rem;
+  }
+
+  .label-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .form-input {
+    height: 36px;
+    padding: 0 0.65rem;
+    font-size: 0.82rem;
+    border-radius: 8px;
+  }
+
+  .field-hint {
+    font-size: 0.6rem;
+  }
+
+  .checkbox-custom {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+  }
+
+  .checkbox-text {
+    font-size: 0.7rem;
+  }
+
+  .warning-box {
+    padding: 0.3rem 0.45rem;
+    border-radius: 7px;
+  }
+
+  .warning-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .warning-title {
+    font-size: 0.65rem;
+  }
+
+  .warning-text {
+    font-size: 0.6rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCESSIBILITY
+   ═══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .form-input,
+  .checkbox-custom {
+    transition: none;
+  }
+}
+
+/* Focus visible for keyboard navigation */
+.form-input:focus-visible {
+  outline: 2px solid #D4AF37;
+  outline-offset: 2px;
+}
+
+.checkbox-input:focus-visible + .checkbox-custom {
+  outline: 2px solid #D4AF37;
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RTL SUPPORT
+   ═══════════════════════════════════════════════════════════════ */
+[dir="rtl"] .form-input {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .form-label {
+  direction: rtl;
+}
+
+[dir="rtl"] .required {
+  margin-left: 0;
+  margin-right: 0.1rem;
+}
+
+[dir="rtl"] .field-hint {
+  padding-left: 0;
+  padding-right: 0.25rem;
+  text-align: right;
+}
+
+[dir="rtl"] .checkbox-label {
+  direction: rtl;
+}
+
+[dir="rtl"] .warning-box {
+  direction: rtl;
+}

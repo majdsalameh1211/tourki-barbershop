@@ -1,150 +1,376 @@
-/* ============================================
-   PROGRESS DOTS - ELEGANT 5-STEP INDICATOR
-   ============================================ */
+/* ═══════════════════════════════════════════════════════════════
+   PROGRESS DOTS - VIEWPORT OPTIMIZED
+   Tourki Barbershop Booking System
+   ═══════════════════════════════════════════════════════════════ */
 
-.progress-dots-container {
-  height: 50px;
-  flex-shrink: 0;
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  
-  padding: 0 1rem;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+.progress-dots-wrapper {
+  width: 100%;
+  padding: 1rem 1rem;
+  transition: padding 0.3s ease;
 }
 
-.progress-dot {
+.progress-dots-container {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.progress-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.35rem;
-  
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  flex: 1;
+  z-index: 2;
 }
 
-/* === DOT CIRCLE === */
-.dot-circle {
-  width: 32px;
-  height: 32px;
+/* === DOT STYLES === */
+.progress-dot {
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  font-size: 0.85rem;
-  font-weight: 700;
-  
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* === STATES === */
-
-/* Completed */
-.progress-dot.completed .dot-circle {
-  background: #D4AF37;
-  color: #FFFFFF;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+.dot-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.progress-dot.completed .dot-circle svg {
-  width: 16px;
-  height: 16px;
-}
-
-.progress-dot.completed .dot-label {
-  color: #D4AF37;
-  font-weight: 700;
-}
-
-/* Active */
-.progress-dot.active .dot-circle {
-  background: linear-gradient(135deg, #D4AF37, #F0D078);
-  color: #FFFFFF;
-  box-shadow: 
-    0 0 20px rgba(212, 175, 55, 0.6),
-    0 4px 15px rgba(212, 175, 55, 0.3);
-  transform: scale(1.15);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.progress-dot.active .dot-label {
-  color: #D4AF37;
+.dot-number {
+  font-size: 0.95rem;
   font-weight: 800;
+  line-height: 1;
 }
 
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 4px 15px rgba(212, 175, 55, 0.3); }
-  50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.8), 0 4px 20px rgba(212, 175, 55, 0.5); }
+.check-icon {
+  width: 18px;
+  height: 18px;
+  color: #FFFFFF;
 }
 
-/* Upcoming */
-.progress-dot.upcoming .dot-circle {
-  background: #E5E7EB;
-  color: #9CA3AF;
+.progress-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* === COLOR STATES === */
+.progress-dot.completed {
+  background: linear-gradient(135deg, #D4AF37, #F0D078);
+  box-shadow: 0 3px 12px rgba(212, 175, 55, 0.25);
+}
+
+.progress-dot.active {
+  background: linear-gradient(135deg, #D4AF37, #F0D078);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
+  transform: scale(1.1);
+  animation: activeDotPulse 2s ease-in-out infinite;
+}
+
+@keyframes activeDotPulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35); }
+  50% { box-shadow: 0 4px 22px rgba(212, 175, 55, 0.5); }
+}
+
+.progress-dot.completed .dot-inner,
+.progress-dot.active .dot-inner {
+  color: #FFFFFF;
+}
+
+.progress-dot.upcoming {
+  background: #EFF0F3;
   border: 2px solid #D1D5DB;
 }
 
-.progress-dot.upcoming .dot-label {
+.progress-dot.upcoming .dot-inner {
   color: #9CA3AF;
 }
 
-/* === LABELS === */
-.dot-label {
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-align: center;
-  
-  transition: all 0.3s ease;
+.progress-label.completed,
+.progress-label.active {
+  color: #D4AF37;
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
+.progress-label.upcoming {
+  color: #9CA3AF;
+}
+
+/* === CONNECTING LINE === */
+.progress-line {
+  position: absolute;
+  top: 21px;
+  left: calc(50% + 24px);
+  right: calc(-50% + 24px);
+  height: 2px;
+  background: #E5E7EB;
+  z-index: 1;
+  border-radius: 1px;
+}
+
+.progress-line.completed::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #D4AF37, #F0D078);
+  border-radius: 1px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: LARGE DESKTOP (1440+)
+   ═══════════════════════════════════════════════════════════════ */
+@media (min-width: 1440px) {
+  .progress-dots-wrapper {
+    padding: 1.15rem 1.25rem;
+  }
+
   .progress-dots-container {
+    max-width: 660px;
+  }
+
+  .progress-dot {
+    width: 46px;
+    height: 46px;
+  }
+
+  .dot-number {
+    font-size: 1rem;
+  }
+
+  .check-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .progress-label {
+    font-size: 0.8rem;
+  }
+
+  .progress-line {
+    top: 23px;
+    left: calc(50% + 26px);
+    right: calc(-50% + 26px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: TABLET (768 - 1024)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .progress-dots-wrapper {
+    padding: 0.85rem 1rem;
+  }
+
+  .progress-dots-container {
+    max-width: 540px;
+  }
+
+  .progress-dot {
+    width: 40px;
     height: 40px;
-    gap: 0.5rem;
   }
-  
-  .dot-circle {
-    width: 28px;
-    height: 28px;
-    font-size: 0.75rem;
+
+  .dot-number {
+    font-size: 0.9rem;
   }
-  
-  .progress-dot.completed .dot-circle svg {
+
+  .check-icon {
+    width: 17px;
+    height: 17px;
+  }
+
+  .progress-label {
+    font-size: 0.72rem;
+  }
+
+  .progress-line {
+    top: 20px;
+    left: calc(50% + 22px);
+    right: calc(-50% + 22px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: MOBILE (481 - 768)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .progress-dots-wrapper {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .progress-dots-container {
+    max-width: 480px;
+  }
+
+  .progress-item {
+    gap: 0.25rem;
+  }
+
+  .progress-dot {
+    width: 36px;
+    height: 36px;
+  }
+
+  .dot-number {
+    font-size: 0.85rem;
+  }
+
+  .check-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .progress-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3px;
+  }
+
+  .progress-line {
+    top: 18px;
+    left: calc(50% + 20px);
+    right: calc(-50% + 20px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: SMALL MOBILE (≤480)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .progress-dots-wrapper {
+    padding: 0.5rem 0.5rem 0.6rem;
+  }
+
+  .progress-item {
+    gap: 0.2rem;
+  }
+
+  .progress-dot {
+    width: 32px;
+    height: 32px;
+  }
+
+  .progress-dot.active {
+    transform: scale(1.08);
+  }
+
+  .dot-number {
+    font-size: 0.8rem;
+  }
+
+  .check-icon {
     width: 14px;
     height: 14px;
   }
-  
-  .progress-dot.active .dot-circle {
-    transform: scale(1.1);
-  }
-  
-  .dot-label {
+
+  .progress-label {
     font-size: 0.6rem;
+    letter-spacing: 0.2px;
+  }
+
+  .progress-line {
+    top: 16px;
+    left: calc(50% + 18px);
+    right: calc(-50% + 18px);
   }
 }
 
-@media (max-width: 480px) {
-  .progress-dots-container {
-    gap: 0.35rem;
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: EXTRA SMALL (≤375 - iPhone SE)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 375px) {
+  .progress-dots-wrapper {
+    padding: 0.4rem 0.4rem 0.5rem;
   }
-  
-  .dot-circle {
-    width: 26px;
-    height: 26px;
+
+  .progress-dot {
+    width: 30px;
+    height: 30px;
+  }
+
+  .dot-number {
+    font-size: 0.75rem;
+  }
+
+  .check-icon {
+    width: 13px;
+    height: 13px;
+  }
+
+  .progress-label {
+    font-size: 0.55rem;
+  }
+
+  .progress-line {
+    top: 15px;
+    left: calc(50% + 17px);
+    right: calc(-50% + 17px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE: LANDSCAPE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .progress-dots-wrapper {
+    padding: 0.3rem 0.5rem 0.35rem;
+  }
+
+  .progress-item {
+    gap: 0.15rem;
+  }
+
+  .progress-dot {
+    width: 28px;
+    height: 28px;
+  }
+
+  .dot-number {
     font-size: 0.7rem;
   }
-  
-  .dot-label {
-    font-size: 0.55rem;
-    letter-spacing: 0.3px;
+
+  .check-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .progress-label {
+    font-size: 0.5rem;
+  }
+
+  .progress-line {
+    top: 14px;
+    left: calc(50% + 16px);
+    right: calc(-50% + 16px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCESSIBILITY
+   ═══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .progress-dot {
+    transition: none;
+  }
+
+  .progress-dot.active {
+    animation: none;
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
   }
 }
