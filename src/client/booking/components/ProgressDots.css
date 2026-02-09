@@ -7,6 +7,7 @@
   width: 100%;
   padding: 1rem 1rem;
   transition: padding 0.3s ease;
+  direction: ltr !important;
 }
 
 .progress-dots-container {
@@ -175,7 +176,7 @@
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 1024px) and (min-width: 769px) {
   .progress-dots-wrapper {
-    padding: 0.85rem 1rem;
+    padding: 1rem 1rem 0.25rem;
   }
 
   .progress-dots-container {
@@ -212,7 +213,7 @@
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
   .progress-dots-wrapper {
-    padding: 0.65rem 0.75rem;
+    padding: 1rem 1rem 0.25rem;;
   }
 
   .progress-dots-container {
@@ -254,7 +255,7 @@
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 480px) {
   .progress-dots-wrapper {
-    padding: 0.5rem 0.5rem 0.6rem;
+    padding: 1rem 1rem 0.25rem;
   }
 
   .progress-item {
@@ -296,7 +297,7 @@
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 375px) {
   .progress-dots-wrapper {
-    padding: 0.4rem 0.4rem 0.5rem;
+    padding: 1rem 1rem 0.25rem;
   }
 
   .progress-dot {

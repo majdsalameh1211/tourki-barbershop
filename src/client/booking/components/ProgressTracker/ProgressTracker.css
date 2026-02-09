@@ -7,10 +7,11 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  margin: 0 auto 1.5rem auto; /* Reduced bottom margin */
+  margin: 0 auto 1.5rem auto;
   max-width: 600px;
   padding: 0 1rem;
-  flex-shrink: 0; /* Don't compress */
+  flex-shrink: 0;
+  direction: ltr; /* Always 1→2→3→4, never reverse */
 }
 
 /* === PROGRESS PILL === */
@@ -105,13 +106,14 @@
 }
 
 .pill-label {
-  font-size: 0.65rem; /* Smaller text */
+  font-size: 0.65rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   text-align: center;
   line-height: 1.1;
-  
+  direction: inherit;
+  unicode-bidi: plaintext; /* Let translated text flow naturally */
   transition: all 0.3s ease;
 }
 

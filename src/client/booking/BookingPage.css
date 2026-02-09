@@ -1,638 +1,178 @@
 /* ═══════════════════════════════════════════════════════════════
-   BOOKING PAGE - VIEWPORT FITTED LAYOUT (ZERO SCROLL)
+   BOOKING PAGE - PERCENTAGE-BASED VIEWPORT LAYOUT
    Tourki Barbershop Booking System
    
-   Layout: navbar → progress → content(flex:1) → nav buttons
-   Everything fits in viewport, footer below fold.
+   EVERY zone is a fixed % of 100dvh. No flex:1 guessing.
+   
+   ┌─────────────────────────────────┐
+   │  NAVBAR ZONE               10%  │  bp-navbar-zone
+   ├─────────────────────────────────┤
+   │  PROGRESS DOTS             10%  │  bp-progress-zone (12.5%)
+   │  padding                   2.5% │
+   ├─────────────────────────────────┤
+   │  padding                   2.5% │
+   │  STEP TITLE                 5%  │  bp-title-zone (10%)
+   │  padding                   2.5% │
+   ├─────────────────────────────────┤
+   │  STEP CONTENT ZONE        67.5% │  bp-content-zone
+   │  ┌───────────────────────────┐  │
+   │  │  REAL CONTENT       52.5% │  │  bp-content-data
+   │  ├───────────────────────────┤  │
+   │  │  padding             2.5% │  │
+   │  │  BUTTONS             10%  │  │  bp-content-buttons (15%)
+   │  │  padding             2.5% │  │
+   │  └───────────────────────────┘  │
+   └─────────────────────────────────┘
+   TOTAL:  10 + 12.5 + 10 + 67.5 = 100%
    ═══════════════════════════════════════════════════════════════ */
 
-.booking-page-container {
+/* ═══════════════════════════════════════════════════════════════
+   ROOT CONTAINER — exactly 100dvh, no scroll
+   ═══════════════════════════════════════════════════════════════ */
+.bp {
   width: 100%;
   height: 100dvh;
-  min-height: 100dvh;
-  
-  background: linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 40%, #F9FAFB 100%);
-  
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  
-  /* Space for fixed Navbar */
-  padding-top: 80px;
+  background: linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 40%, #F9FAFB 100%);
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PROGRESS SECTION
+   ZONE 1: NAVBAR (10%)
+   The actual navbar is rendered outside (App.jsx) with
+   position:sticky. This zone reserves the space.
    ═══════════════════════════════════════════════════════════════ */
-.booking-progress-section {
+.bp-navbar-zone {
   width: 100%;
+  height: 1dvh;
   flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ZONE 2: PROGRESS DOTS (15% = 2.5 + 10 + 2.5)
+   ═══════════════════════════════════════════════════════════════ */
+.bp-progress-zone {
+  width: 100%;
+  height: 12.5dvh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* No top padding (sits right under navbar), 2.5% bottom only */
+  padding: 0 1rem 2.5dvh 1rem;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(212, 175, 55, 0.08);
-  position: relative;
-  z-index: 10;
+}
+
+.bp-progress-inner {
+  width: 100%;
+  height: 100%;
+  max-width: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CONTENT WRAPPER - Flex Area
+   ZONE 3: STEP TITLE (10% = 2.5 + 5 + 2.5)
    ═══════════════════════════════════════════════════════════════ */
-.booking-content-wrapper {
-  flex: 1;
+.bp-title-zone {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  
+  height: 10dvh;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  
-  padding: 0.75rem 1.5rem 0.5rem;
-  
+  align-items: center;
+  justify-content: center;
+  /* 2.5% top + 2.5% bottom padding */
+  padding: 2.5dvh 1rem;
+}
+
+.bp-title-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bp-step-title {
+  font-size: clamp(1rem, 3vw, 1.6rem);
+  font-weight: 800;
+  color: #1F2937;
+  text-align: center;
+  margin: 0;
+  letter-spacing: -0.3px;
+  background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ZONE 4: STEP CONTENT (65%)
+   Split into: data (50%) + buttons (15%)
+   ═══════════════════════════════════════════════════════════════ */
+.bp-content-zone {
+  width: 90%;
+  height: 67.5dvh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 0; /* 5% on each side is handled by width: 90% centered */
+}
+
+/* ── Sub-zone A: Real step content (50dvh) ── */
+.bp-content-data {
+  width: 100%;
+  height: 52.5dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: rgba(212, 175, 55, 0.2) transparent;
 }
 
-.booking-content-wrapper::-webkit-scrollbar {
-  width: 4px;
-}
+.bp-content-data::-webkit-scrollbar { width: 4px; }
+.bp-content-data::-webkit-scrollbar-track { background: transparent; }
+.bp-content-data::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.2); border-radius: 4px; }
 
-.booking-content-wrapper::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.booking-content-wrapper::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.2);
-  border-radius: 4px;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   STEP CONTENT
-   ═══════════════════════════════════════════════════════════════ */
-.booking-step-content {
+/* ── Sub-zone B: Buttons (15dvh = 2.5 + 10 + 2.5) ── */
+.bp-content-buttons {
   width: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 100%;
-  min-height: 0;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   NAVIGATION SECTION
-   ═══════════════════════════════════════════════════════════════ */
-.booking-navigation-section {
-  width: 100%;
+  height: 15dvh;
   flex-shrink: 0;
-  padding: 0.75rem 0 1.25rem;
-  background: transparent;
-}
-
-/* ── BUTTON CONTAINER ── */
-.nav-buttons-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.75rem;
-  max-width: 560px;
-  margin: 0 auto;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   HOME BUTTON (Step 1 - left side)
-   ═══════════════════════════════════════════════════════════════ */
-.nav-btn-home {
-  flex: 0 0 auto;
-  height: 50px;
-  padding: 0 1.25rem;
-  background: #FFFFFF;
-  color: #6B7280;
-  border: 1.5px solid #E5E7EB;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-  text-decoration: none;
-}
-
-.nav-btn-home .btn-icon svg {
-  stroke: #9CA3AF;
-  transition: stroke 0.2s ease, transform 0.2s ease;
-}
-
-.nav-btn-home:hover {
-  background: #F9FAFB;
-  border-color: #D1D5DB;
-  color: #374151;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  text-decoration: none;
-}
-
-.nav-btn-home:hover .btn-icon svg {
-  stroke: #D4AF37;
-  transform: scale(1.1);
-}
-
-/* Step 4: Confirm step layout */
-.nav-buttons-container.confirm-step {
-  gap: 0.85rem;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   BUTTON BASE
-   ═══════════════════════════════════════════════════════════════ */
-.nav-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  -webkit-tap-highlight-color: transparent;
-}
-
-.nav-btn:active {
-  transform: scale(0.97) !important;
-}
-
-.btn-text {
-  position: relative;
-  z-index: 2;
-  white-space: nowrap;
-}
-
-.btn-icon {
-  position: relative;
-  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 0;
-}
-
-.btn-icon svg {
-  display: block;
+  /* 2.5dvh top + 2.5dvh bottom padding, inner = 10dvh */
+  padding: 2.5dvh 0;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PREVIOUS BUTTON
-   ═══════════════════════════════════════════════════════════════ */
-.nav-btn-prev {
-  flex: 0 0 auto;
-  height: 50px;
-  padding: 0 1.25rem;
-  background: #FFFFFF;
-  color: #6B7280;
-  border: 1.5px solid #E5E7EB;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-}
-
-.nav-btn-prev .btn-icon svg {
-  stroke: #9CA3AF;
-  transition: stroke 0.2s ease, transform 0.2s ease;
-}
-
-.nav-btn-prev:hover {
-  background: #F9FAFB;
-  border-color: #D1D5DB;
-  color: #374151;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-}
-
-.nav-btn-prev:hover .btn-icon svg {
-  stroke: #374151;
-  transform: translateX(-2px);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   NEXT / CONTINUE BUTTON
-   ═══════════════════════════════════════════════════════════════ */
-.nav-btn-next {
-  flex: 1;
-  height: 52px;
-  padding: 0 1.5rem;
-}
-
-/* Active / Valid state */
-.nav-btn-next.active {
-  background: linear-gradient(135deg, #D4AF37 0%, #F0D078 50%, #D4AF37 100%);
-  background-size: 200% auto;
-  color: #1F2937;
-  border: none;
-  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
-}
-
-.nav-btn-next.active .btn-icon svg {
-  stroke: #1F2937;
-  transition: transform 0.2s ease;
-}
-
-/* Shimmer on active */
-.nav-btn-next.active::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  animation: btnShimmer 2.5s ease-in-out infinite;
-}
-
-@keyframes btnShimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.nav-btn-next.active:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.45);
-  background-position: right center;
-}
-
-.nav-btn-next.active:hover .btn-icon svg {
-  transform: translateX(2px);
-}
-
-/* Disabled state */
-.nav-btn-next.disabled {
-  background: #EFF0F3;
-  color: #B0B5BE;
-  cursor: not-allowed;
-  border: 1.5px solid #E5E7EB;
-  box-shadow: none;
-}
-
-.nav-btn-next.disabled .btn-icon svg {
-  stroke: #B0B5BE;
-}
-
-.nav-btn-next.disabled:hover {
-  transform: none;
-}
-
-.nav-btn-next.disabled:active {
-  transform: none !important;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   CONFIRM BUTTON (Step 4 Special)
-   ═══════════════════════════════════════════════════════════════ */
-.nav-btn-next.confirm.active {
-  background: linear-gradient(135deg, #D4AF37 0%, #E8C84A 30%, #F0D078 60%, #D4AF37 100%);
-  background-size: 300% auto;
-  box-shadow: 
-    0 4px 16px rgba(212, 175, 55, 0.4),
-    0 0 0 2px rgba(212, 175, 55, 0.15);
-  height: 54px;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-}
-
-.nav-btn-next.confirm.active::before {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-  animation: confirmShimmer 2s ease-in-out infinite;
-}
-
-@keyframes confirmShimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.nav-btn-next.confirm.active:hover {
-  box-shadow: 
-    0 8px 28px rgba(212, 175, 55, 0.5),
-    0 0 0 2px rgba(212, 175, 55, 0.25);
-  background-position: right center;
-}
-
-.nav-btn-next.confirm.active .btn-icon svg {
-  stroke: #1F2937;
-  stroke-width: 3;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE: LARGE DESKTOP (1440+)
-   ═══════════════════════════════════════════════════════════════ */
-@media (min-width: 1440px) {
-  .booking-page-container {
-    padding-top: 80px;
-  }
-
-  .booking-content-wrapper {
-    padding: 1rem 2rem 0.75rem;
-  }
-
-  .nav-buttons-container {
-    max-width: 600px;
-  }
-
-  .nav-btn-next {
-    height: 54px;
-    font-size: 1rem;
-    border-radius: 16px;
-  }
-
-  .nav-btn-prev,
-  .nav-btn-home {
-    height: 52px;
-    border-radius: 16px;
-  }
-
-  .nav-btn-next.confirm.active {
-    height: 56px;
-    font-size: 1.05rem;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE: LAPTOP (1025 - 1440)
-   ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 1440px) and (min-width: 1025px) {
-  .booking-page-container {
-    padding-top: 75px;
-  }
-
-  .booking-content-wrapper {
-    padding: 0.75rem 1.5rem 0.5rem;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE: TABLET (768 - 1024)
-   ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .booking-page-container {
-    padding-top: 65px;
-  }
-
-  .booking-content-wrapper {
-    padding: 0.5rem 1.25rem 0.25rem;
-  }
-
-  .nav-buttons-container {
-    max-width: 500px;
-  }
-
-  .nav-btn-next {
-    height: 50px;
-    font-size: 0.92rem;
-    border-radius: 12px;
-  }
-
-  .nav-btn-prev,
-  .nav-btn-home {
-    height: 48px;
-    border-radius: 12px;
-    padding: 0 1rem;
-  }
-
-  .nav-btn-next.confirm.active {
-    height: 52px;
-  }
-
-  .booking-navigation-section {
-    padding: 0.5rem 0 1rem;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE: MOBILE (481 - 768)
-   ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
-  .booking-page-container {
-    padding-top: 60px;
-  }
-
-  .booking-content-wrapper {
-    padding: 0.4rem 1rem 0;
-  }
-
-  .booking-navigation-section {
-    padding: 0.5rem 0 0.85rem;
-  }
-
-  .nav-buttons-container {
-    gap: 0.6rem;
-  }
-
-  .nav-btn-next {
-    height: 48px;
-    font-size: 0.9rem;
-    border-radius: 12px;
-    padding: 0 1.25rem;
-  }
-
-  .nav-btn-prev,
-  .nav-btn-home {
-    height: 46px;
-    border-radius: 12px;
-    padding: 0 0.85rem;
-    font-size: 0.88rem;
-  }
-
-  .nav-btn-next.confirm.active {
-    height: 50px;
-    font-size: 0.95rem;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE: SMALL MOBILE (≤480)
+   RESPONSIVE — only container-level tweaks
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 480px) {
-  .booking-page-container {
-    padding-top: 60px;
-  }
-
-  .booking-content-wrapper {
-    padding: 0.25rem 0.75rem 0;
-  }
-
-  .booking-navigation-section {
-    padding: 0.35rem 0 0.75rem;
-  }
-
-  .nav-buttons-container {
-    gap: 0.5rem;
-  }
-
-  .nav-btn-next {
-    height: 46px;
-    font-size: 0.88rem;
-    border-radius: 11px;
-    gap: 0.4rem;
-  }
-
-  .nav-btn-prev,
-  .nav-btn-home {
-    height: 44px;
-    border-radius: 11px;
-    padding: 0 0.75rem;
-    font-size: 0.85rem;
-    gap: 0.35rem;
-  }
-
-  .nav-btn-prev .btn-icon svg,
-  .nav-btn-home .btn-icon svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .nav-btn-next .btn-icon svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .nav-btn-next.confirm.active {
-    height: 48px;
-    font-size: 0.9rem;
-  }
-
-  .nav-btn-next.confirm .btn-icon svg {
-    width: 18px;
-    height: 18px;
-  }
+  .bp-progress-zone { padding: 0 0.5rem 2.5dvh 0.5rem; }
+  .bp-title-zone { padding: 2.5dvh 0.5rem; }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE: EXTRA SMALL (≤375 - iPhone SE)
-   ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 375px) {
-  .booking-page-container {
-    padding-top: 56px;
-  }
-
-  .booking-content-wrapper {
-    padding: 0.15rem 0.6rem 0;
-  }
-
-  .booking-navigation-section {
-    padding: 0.25rem 0 0.65rem;
-  }
-
-  .nav-btn-next {
-    height: 44px;
-    font-size: 0.82rem;
-    border-radius: 10px;
-  }
-
-  .nav-btn-prev,
-  .nav-btn-home {
-    height: 42px;
-    border-radius: 10px;
-    padding: 0 0.65rem;
-    font-size: 0.8rem;
-  }
-
-  .nav-btn-next.confirm.active {
-    height: 46px;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE: LANDSCAPE
-   ═══════════════════════════════════════════════════════════════ */
-@media (max-height: 500px) and (orientation: landscape) {
-  .booking-page-container {
-    padding-top: 50px;
-  }
-
-  .booking-content-wrapper {
-    padding: 0.15rem 1rem 0;
-  }
-
-  .booking-navigation-section {
-    padding: 0.2rem 0 0.4rem;
-  }
-
-  .nav-btn-next {
-    height: 40px;
-    font-size: 0.8rem;
-    border-radius: 9px;
-  }
-
-  .nav-btn-prev,
-  .nav-btn-home {
-    height: 38px;
-    border-radius: 9px;
-    font-size: 0.78rem;
-    padding: 0 0.6rem;
-  }
-
-  .nav-btn-next.confirm.active {
-    height: 42px;
-    font-size: 0.82rem;
-  }
-
-  .nav-btn-prev .btn-icon svg,
-  .nav-btn-home .btn-icon svg,
-  .nav-btn-next .btn-icon svg {
-    width: 14px;
-    height: 14px;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ACCESSIBILITY
-   ═══════════════════════════════════════════════════════════════ */
-@media (prefers-reduced-motion: reduce) {
-  .nav-btn {
-    transition: none;
-  }
-
-  .nav-btn-next.active::before,
-  .nav-btn-next.confirm.active::before {
-    animation: none;
-    display: none;
-  }
-
-  .nav-btn-next.active:hover,
-  .nav-btn-prev:hover {
-    transform: none;
-  }
-}
-
-.nav-btn:focus-visible {
-  outline: 2px solid #D4AF37;
-  outline-offset: 3px;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   RTL SUPPORT
-   ═══════════════════════════════════════════════════════════════ */
-[dir="rtl"] .nav-buttons-container {
-  direction: rtl;
-  flex-direction: row-reverse;
-}
-
-[dir="rtl"] .nav-btn-prev:hover .btn-icon svg {
-  transform: translateX(2px);
-}
-
-[dir="rtl"] .nav-btn-home:hover .btn-icon svg {
-  transform: scale(1.1);
+  .bp-progress-zone { padding: 0 0.25rem 2.5dvh 0.25rem; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
    SAFE AREA (Notched devices)
    ═══════════════════════════════════════════════════════════════ */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .booking-navigation-section {
-    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
-  }
-
-  @media (max-width: 480px) {
-    .booking-navigation-section {
-      padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
-    }
+  .bp-content-buttons {
+    padding-bottom: calc(2.5dvh + env(safe-area-inset-bottom));
   }
 }

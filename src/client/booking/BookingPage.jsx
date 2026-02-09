@@ -5,6 +5,7 @@ import Step1Date from './steps/Step1Date/Step1Date';
 import Step2Time from './steps/Step2Time/Step2Time';
 import Step3ClientInfo from './steps/Step3ClientInfo/Step3ClientInfo';
 import Step4Confirm from './steps/Step4Confirm/Step4Confirm';
+import NavigationButtons from './components/NavigationButtons/NavigationButtons';
 import SuccessModal from './components/SuccessModal';
 import './BookingPage.css';
 
@@ -44,10 +45,8 @@ const BookingPage = () => {
 
   const handleNext = () => {
     if (!validateStep(currentStep)) return;
-    
     if (currentStep < 4) {
       setCurrentStep(prev => prev + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -59,7 +58,6 @@ const BookingPage = () => {
 
   const handleSubmit = async () => {
     console.log('Booking submitted:', bookingData);
-    // API call logic here
     setTimeout(() => setShowSuccess(true), 500);
   };
 
@@ -103,83 +101,53 @@ const BookingPage = () => {
   };
 
   return (
-    <div className="booking-page-container">
+    <div className="bp">
       {showSuccess && <SuccessModal />}
 
-      {/* 1. Progress Dots */}
-      <div className="booking-progress-section">
-        <ProgressDots currentStep={currentStep} totalSteps={4} />
+      {/* ── ZONE 1: NAVBAR CONTAINER (10%) ── */}
+      {/* Navbar is rendered outside BookingPage via App.jsx,
+          but we reserve 10% for it here */}
+      <div className="bp-navbar-zone" />
+
+      {/* ── ZONE 2: PROGRESS DOTS (15% = 2.5 + 10 + 2.5) ── */}
+      <div className="bp-progress-zone">
+        <div className="bp-progress-inner">
+          <ProgressDots currentStep={currentStep} totalSteps={4} />
+        </div>
       </div>
 
-      {/* 2. Main Content Wrapper */}
-      <div className="booking-content-wrapper">
-        
-        {/* Step Content */}
-        <div className="booking-step-content">
+      {/* ── ZONE 3: TITLE (10% = 2.5 + 5 + 2.5) ── */}
+      <div className="bp-title-zone">
+        <div className="bp-title-inner">
+          <h2 className="bp-step-title">
+            {currentStep === 1 && t('booking.step1.title', 'Pick Your Date')}
+            {currentStep === 2 && t('booking.step2.title', 'Pick Your Time')}
+            {currentStep === 3 && t('booking.step3.title', 'Your Details')}
+            {currentStep === 4 && t('booking.step4.title', 'Almost Done!')}
+          </h2>
+        </div>
+      </div>
+
+      {/* ── ZONE 4: STEP CONTENT (65% = 50 + 15) ── */}
+      <div className="bp-content-zone">
+
+        {/* Sub-zone A: Real step content (50%) */}
+        <div className="bp-content-data">
           {renderStep()}
         </div>
 
-        {/* 3. Navigation Buttons - Always 2 buttons for balanced layout */}
-        <div className="booking-navigation-section">
-          <div className={`nav-buttons-container ${currentStep === 4 ? 'confirm-step' : ''}`}>
-            
-            {/* LEFT BUTTON: Home (Step 1) or Back (Steps 2-4) */}
-            {currentStep === 1 ? (
-              <a
-                href="/"
-                className="nav-btn nav-btn-home"
-                aria-label={t('booking.buttons.home', 'Back to Home')}
-              >
-                <span className="btn-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                    <polyline points="9 22 9 12 15 12 15 22" />
-                  </svg>
-                </span>
-                <span className="btn-text">{t('booking.buttons.home', 'Home')}</span>
-              </a>
-            ) : (
-              <button
-                className="nav-btn nav-btn-prev"
-                onClick={handlePrev}
-              >
-                <span className="btn-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points={isRTL ? "9 18 15 12 9 6" : "15 18 9 12 15 6"} />
-                  </svg>
-                </span>
-                <span className="btn-text">{t('booking.buttons.prev', 'Back')}</span>
-              </button>
-            )}
-            
-            {/* RIGHT BUTTON: Next (Steps 1-3) or Confirm (Step 4) */}
-            <button
-              className={`nav-btn nav-btn-next ${validateStep(currentStep) ? 'active' : 'disabled'} ${currentStep === 4 ? 'confirm' : ''}`}
-              onClick={currentStep === 4 ? handleSubmit : handleNext}
-              disabled={!validateStep(currentStep)}
-            >
-              <span className="btn-text">
-                {currentStep === 4 
-                  ? t('booking.buttons.confirm', 'Confirm Booking') 
-                  : t('booking.buttons.next', 'Continue')
-                }
-              </span>
-              <span className="btn-icon">
-                {currentStep === 4 ? (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                ) : (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points={isRTL ? "15 18 9 12 15 6" : "9 18 15 12 9 6"} />
-                  </svg>
-                )}
-              </span>
-            </button>
-
-          </div>
+        {/* Sub-zone B: Buttons (15% = 2.5 + 10 + 2.5) */}
+        <div className="bp-content-buttons">
+          <NavigationButtons
+            currentStep={currentStep}
+            totalSteps={4}
+            isValid={validateStep(currentStep)}
+            onNext={handleNext}
+            onPrev={handlePrev}
+            onSubmit={handleSubmit}
+          />
         </div>
-        
+
       </div>
     </div>
   );

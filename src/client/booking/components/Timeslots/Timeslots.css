@@ -1,0 +1,285 @@
+/* ═══════════════════════════════════════════════════════════════
+   TIMESLOTS COMPONENT — Reusable, Container-Responsive
+   Tourki Barbershop Design System
+   
+   USAGE:
+   Place <TimeSlots /> inside any container. It fills 100%
+   of the parent's width and height. All internal sizing is
+   relative.
+   
+   STRUCTURE:
+   .ts
+     .ts-date-badge  (date display — flex-shrink: 0, optional)
+     .ts-grid        (time slots — flex: 1, fills space, scrollable)
+     .ts-preview     (selected time bar — flex-shrink: 0, optional)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* === ROOT — fills parent === */
+.ts {
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 1%, 10px);
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DATE BADGE
+   ═══════════════════════════════════════════════════════════════ */
+.ts-date-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(4px, 1.5%, 10px);
+  padding: clamp(4px, 1%, 10px) clamp(8px, 2.5%, 18px);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.06), rgba(240, 208, 120, 0.06));
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: clamp(8px, 1.5vw, 14px);
+  flex-shrink: 0;
+}
+
+.ts-date-icon {
+  width: clamp(14px, 3vw, 20px);
+  height: clamp(14px, 3vw, 20px);
+  color: #D4AF37;
+  flex-shrink: 0;
+}
+
+.ts-date-text {
+  font-size: clamp(0.7rem, 1.8vw, 0.9rem);
+  font-weight: 600;
+  color: #374151;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TIME SLOTS GRID — scrollable, fills remaining space
+   ═══════════════════════════════════════════════════════════════ */
+.ts-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(70px, 15%, 110px), 1fr));
+  grid-auto-rows: min-content;
+  gap: clamp(4px, 1%, 10px);
+  padding: clamp(2px, 0.5%, 6px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-content: start;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.2) transparent;
+}
+
+.ts-grid::-webkit-scrollbar { width: 4px; }
+.ts-grid::-webkit-scrollbar-track { background: transparent; }
+.ts-grid::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.2); border-radius: 4px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   INDIVIDUAL TIME SLOT
+   ═══════════════════════════════════════════════════════════════ */
+.ts-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(3px, 1%, 8px);
+  padding: clamp(6px, 1.5%, 14px) clamp(4px, 1%, 10px);
+  border-radius: clamp(8px, 1.5vw, 14px);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(36px, 8%, 54px);
+}
+
+.ts-slot-time {
+  font-size: clamp(0.72rem, 1.8vw, 0.95rem);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.ts-slot-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.6rem, 1.5vw, 0.78rem);
+  line-height: 1;
+}
+
+.ts-check-icon {
+  width: clamp(12px, 3vw, 18px);
+  height: clamp(12px, 3vw, 18px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SLOT STATES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Available */
+.ts-slot.available {
+  background: #FFFFFF;
+  border-color: #E5E7EB;
+  color: #374151;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.ts-slot.available:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  background: rgba(212, 175, 55, 0.04);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+}
+
+.ts-slot.available:active {
+  transform: scale(0.97);
+}
+
+/* Selected */
+.ts-slot.selected {
+  background: linear-gradient(135deg, #D4AF37, #F0D078);
+  border-color: transparent;
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
+  transform: scale(1.03);
+}
+
+.ts-slot.selected .ts-slot-time { color: #FFFFFF; }
+.ts-slot.selected .ts-slot-status { color: #FFFFFF; }
+
+.ts-slot.selected::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  animation: tsShimmer 2.5s ease-in-out infinite;
+}
+
+@keyframes tsShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Booked (Approved) */
+.ts-slot.booked {
+  background: rgba(239, 68, 68, 0.06);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.ts-slot.booked .ts-slot-time {
+  text-decoration: line-through;
+  text-decoration-color: rgba(239, 68, 68, 0.5);
+}
+
+/* Pending */
+.ts-slot.pending {
+  background: rgba(245, 158, 11, 0.06);
+  border-color: rgba(245, 158, 11, 0.25);
+  color: #F59E0B;
+  cursor: not-allowed;
+  animation: tsPendingPulse 2s ease-in-out infinite;
+}
+
+@keyframes tsPendingPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.9; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   EMPTY STATE
+   ═══════════════════════════════════════════════════════════════ */
+.ts-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(4px, 1.5%, 10px);
+  text-align: center;
+}
+
+.ts-empty-icon {
+  width: clamp(32px, 8vw, 52px);
+  height: clamp(32px, 8vw, 52px);
+  color: #D1D5DB;
+}
+
+.ts-empty-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ts-empty-text {
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-weight: 700;
+  color: #6B7280;
+  margin: 0;
+}
+
+.ts-empty-hint {
+  font-size: clamp(0.7rem, 1.8vw, 0.88rem);
+  color: #9CA3AF;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SELECTED TIME PREVIEW BAR
+   ═══════════════════════════════════════════════════════════════ */
+.ts-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(4px, 1.5%, 10px);
+  padding: clamp(4px, 1.5%, 10px) clamp(8px, 2.5%, 16px);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(240, 208, 120, 0.08));
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: clamp(6px, 1.5vw, 14px);
+  font-size: clamp(0.65rem, 1.8vw, 0.88rem);
+  font-weight: 600;
+  color: #374151;
+  flex-shrink: 0;
+}
+
+.ts-preview-icon {
+  width: clamp(14px, 3vw, 20px);
+  height: clamp(14px, 3vw, 20px);
+  color: #D4AF37;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCESSIBILITY
+   ═══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .ts-slot,
+  .ts-slot.pending {
+    transition: none;
+    animation: none;
+  }
+
+  .ts-slot.selected::before {
+    animation: none;
+    display: none;
+  }
+
+  .ts-slot.available:hover {
+    transform: none;
+  }
+}
+
+.ts-slot:focus-visible {
+  outline: 2px solid #D4AF37;
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RTL SUPPORT — only text direction, not layout
+   ═══════════════════════════════════════════════════════════════ */
+[dir="rtl"] .ts-date-badge,
+[dir="rtl"] .ts-preview {
+  direction: rtl;
+}
