@@ -58,7 +58,7 @@ export const languages = [
 export const translationResources = {
   en: {
     translation: {
-      navbar: { tagline: "Barber Shop", selectLanguage: "Select Language" },
+      navbar: { tagline: "Royal Cut", selectLanguage: "Select Language" },
       hero: {
         subtitle: "Professional Barber Shop in Reneh Main Street",
         bookBtn: "BOOK NOW",
@@ -81,7 +81,7 @@ export const translationResources = {
         "Beard Trim": "Beard Trim"
       },
       footer: {
-        tagline: "Barber Shop",
+        tagline: "Royal Cut",
         address: "Reneh Main Street, Nazareth",
         followUs: "Follow Us On Social Media",
         copyright: "© {{year}} Tourki Barber Shop. All rights reserved.",
