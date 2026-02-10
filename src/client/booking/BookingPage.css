@@ -176,3 +176,102 @@
     padding-bottom: calc(2.5dvh + env(safe-area-inset-bottom));
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   DESKTOP GRID LAYOUT (min-width: 1024px)
+   Structure: 5% Side Pads / 2.5% Vertical Spacers
+   FIXED: Added 2.5% gap between Content and Buttons
+   ═══════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+
+  .bp {
+    display: grid;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 700px;
+    
+    /* 1. DEFINE ROWS (Total = 100%)
+       Nav(10) + Pad(2.5) + Title(5) + Pad(2.5) + Content(67.5) + GAP(2.5) + Buttons(10) */
+    grid-template-rows: 1vh 2.5vh 5vh 2.5vh 67.5vh 2.5vh 10vh;
+
+    /* 2. DEFINE COLUMNS (Total = 100%)
+       Pad(5) + Dots(5) + Pad(5) + Content(80) + Pad(5) */
+    grid-template-columns: 5% 5% 5% 80% 5%;
+
+    /* 3. MAP THE ZONES */
+    grid-template-areas:
+      "nav    nav    nav    nav     nav"    /* Row 1: Navbar */
+      ".      .      .      .       ."      /* Row 2: Padding */
+      ".      .      title  title   ."      /* Row 3: Title */
+      ".      .      .      .       ."      /* Row 4: Padding */
+      ".      dots   .      content ."      /* Row 5: MAIN CONTENT */
+      ".      .      .      .       ."      /* Row 6: NEW GAP (2.5%) */
+      ".      .      .      btns    .";     /* Row 7: BUTTONS */
+  }
+
+  /* 4. ASSIGN DIRECT CHILDREN TO AREAS */
+  .bp-navbar-zone   { grid-area: nav; }
+  .bp-progress-zone { grid-area: dots; }
+  .bp-title-zone    { grid-area: title; }
+
+  /* 5. UNWRAP THE CONTENT ZONE */
+  /* This is critical for grid placement */
+  .bp-content-zone {
+    display: contents; 
+  }
+
+  /* 6. PLACE CHILDREN ON GRID */
+  
+  /* Main Content: Fills the 67.5vh row */
+  .bp-content-data {
+    grid-area: content;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 1rem;
+  }
+
+  /* Buttons: Fills the 10vh row (after the gap) */
+  .bp-content-buttons {
+    grid-area: btns;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center; /* Vertically centered in the 10vh strip */
+    justify-content: flex-end; /* Right aligned */
+    padding-bottom: 0;
+  }
+
+  /* 7. RESET STYLES FOR DESKTOP */
+  .bp-progress-zone,
+  .bp-title-zone {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+  }
+
+  /* Vertical Dots Alignment */
+  .bp-progress-zone {
+    justify-content: flex-start;
+    padding-top: 2rem; 
+  }
+  
+  .bp-progress-inner {
+    height: auto;
+    align-items: center; 
+  }
+
+  /* Title Alignment */
+  .bp-title-zone {
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .bp-step-title {
+     font-size: 1.5rem; 
+  }
+}

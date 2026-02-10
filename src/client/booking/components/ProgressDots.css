@@ -27,6 +27,7 @@
   position: relative;
   flex: 1;
   z-index: 2;
+  cursor: pointer; /* <--- Shows hand icon on hover */
 }
 
 /* === DOT STYLES === */
@@ -373,5 +374,64 @@
   .progress-dot.active {
     animation: none;
     box-shadow: 0 4px 16px rgba(212, 175, 55, 0.35);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DESKTOP OVERRIDE: VERTICAL STACKING
+   Matches the Grid Layout (min-width: 1024px)
+   ═══════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+  /* Reset Wrapper */
+  .progress-dots-wrapper {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Stack Items Vertically */
+  .progress-dots-container {
+    flex-direction: column;
+    justify-content: flex-start; /* Start from top */
+    align-items: center; /* Center in the 5% width col */
+    gap: 2.5rem; /* Gap between steps */
+    width: 100%;
+    height: auto;
+    max-width: none;
+    margin: 0;
+  }
+
+  /* Each Item: Dot above Label (Standard) */
+  .progress-item {
+    flex-direction: column;
+    flex: 0 0 auto;
+    width: 100%;
+    gap: 0.4rem;
+    overflow: visible;
+  }
+
+  /* Rotate Line to Vertical */
+  .progress-line {
+    width: 2px;
+    height: 2.5rem; /* Matches the gap */
+    top: 100%;      /* Start below the text/dot */
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    margin-top: 0.2rem; /* Small offset */
+  }
+  
+  /* Larger Dots for Desktop */
+  .progress-dot {
+    width: 48px;
+    height: 48px;
+  }
+  
+  /* Font Adjustments */
+  .progress-label {
+    font-size: 0.7rem;
+    line-height: 1.2;
+    /* Optional: Hide label if 5% width is too tight */
+    /* display: none; */ 
   }
 }

@@ -27,8 +27,18 @@ const ClientForm = ({
 }) => {
   const { t } = useTranslation();
 
-  const formatPhoneNumber = (value) => {
+const formatPhoneNumber = (value) => {
+    // Allow typing + for international numbers
+    if (value.startsWith('+')) return value;
+
     const cleaned = value.replace(/\D/g, '');
+    
+    // If it looks like an international number (starts with 972), keep it simple
+    if (cleaned.startsWith('972')) {
+      return '+' + cleaned;
+    }
+
+    // Standard Israeli formatting (05X-XXX-XXXX)
     if (cleaned.length <= 3) {
       return cleaned;
     } else if (cleaned.length <= 6) {

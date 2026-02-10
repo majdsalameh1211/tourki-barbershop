@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import './ProgressDots.css';
 
-const ProgressDots = ({ currentStep, totalSteps = 4 }) => {
+const ProgressDots = ({ currentStep, totalSteps = 4, onStepClick }) => {
   const { t } = useTranslation();
-  
+
   const steps = [
     { num: 1, label: t('booking.steps.date', 'Date'), icon: '📅' },
     { num: 2, label: t('booking.steps.time', 'Time'), icon: '⏰' },
@@ -21,13 +21,17 @@ const ProgressDots = ({ currentStep, totalSteps = 4 }) => {
     <div className="progress-dots-wrapper">
       <div className="progress-dots-container">
         {steps.map((step, index) => (
-          <div key={step.num} className="progress-item">
+          <div
+            key={step.num}
+            className="progress-item"
+            onClick={() => onStepClick && onStepClick(step.num)} // <--- Click handler
+          >
             {/* Dot */}
             <div className={`progress-dot ${getStepClass(step.num)}`}>
               <div className="dot-inner">
                 {step.num < currentStep ? (
                   <svg className="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                    <polyline points="20 6 9 17 4 12"/>
+                    <polyline points="20 6 9 17 4 12" />
                   </svg>
                 ) : (
                   <span className="dot-number">{step.num}</span>

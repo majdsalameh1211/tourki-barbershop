@@ -11,7 +11,7 @@ import './BookingPage.css';
 
 const BookingPage = () => {
   const { t } = useTranslation();
-  
+
   const [currentStep, setCurrentStep] = useState(1);
   const [showSuccess, setShowSuccess] = useState(false);
   const [bookingData, setBookingData] = useState({
@@ -28,17 +28,20 @@ const BookingPage = () => {
 
   const validateStep = (step) => {
     switch (step) {
-      case 1: 
+      case 1:
         return bookingData.date !== null;
-      case 2: 
+      case 2:
         return bookingData.timeSlot !== null;
       case 3:
         const nameValid = bookingData.clientName.trim().length >= 2;
-        const phoneValid = /^05\d-?\d{3}-?\d{4}$/.test(bookingData.clientPhone.replace(/\s/g, ''));
+        // Strip non-digits to validate the core number length and prefix
+        const phoneDigits = bookingData.clientPhone.replace(/\D/g, '');
+        // Valid if: Starts with 05 (10 digits total) OR Starts with 972 (12 digits total)
+        const phoneValid = /^05\d{8}$/.test(phoneDigits) || /^9725\d{8}$/.test(phoneDigits);
         return nameValid && phoneValid;
-      case 4: 
+      case 4:
         return true;
-      default: 
+      default:
         return false;
     }
   };
@@ -53,6 +56,32 @@ const BookingPage = () => {
   const handlePrev = () => {
     if (currentStep > 1) {
       setCurrentStep(prev => prev - 1);
+    }
+  };
+
+  // Allow clicking dots to navigate
+  const handleStepClick = (step) => {
+    // 1. Don't do anything if clicking the current step
+    if (step === currentStep) return;
+
+    // 2. If going back, always allow
+    if (step < currentStep) {
+      setCurrentStep(step);
+      return;
+    }
+
+    // 3. If going forward, ensure ALL previous steps are valid
+    // (e.g. can't jump to Step 3 if Step 1 is invalid)
+    let canProceed = true;
+    for (let i = 1; i < step; i++) {
+      if (!validateStep(i)) {
+        canProceed = false;
+        break;
+      }
+    }
+
+    if (canProceed) {
+      setCurrentStep(step);
     }
   };
 
@@ -112,7 +141,11 @@ const BookingPage = () => {
       {/* ── ZONE 2: PROGRESS DOTS (15% = 2.5 + 10 + 2.5) ── */}
       <div className="bp-progress-zone">
         <div className="bp-progress-inner">
-          <ProgressDots currentStep={currentStep} totalSteps={4} />
+          <ProgressDots
+            currentStep={currentStep}
+            totalSteps={4}
+            onStepClick={handleStepClick} // <--- Pass the new handler
+          />
         </div>
       </div>
 

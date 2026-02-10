@@ -274,3 +274,13 @@
   direction: rtl;
 }
 
+@media (min-width: 1024px) {
+  .cal {
+    max-width: 650px; /* Allow it to be slightly wider on desktop */
+  }
+  
+  /* Prevent cells from getting comically large on big screens */
+  .cal-cell {
+    max-height: 60px; 
+  }
+}
