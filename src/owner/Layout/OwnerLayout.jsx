@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import OwnerSidebar from '../components/SideBar/SideBar';
+import OwnerSidebar from '../components/Sidebar/Sidebar';
 import './OwnerLayout.css';
 
 const OwnerLayout = () => {
