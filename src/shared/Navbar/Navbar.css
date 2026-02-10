@@ -44,29 +44,6 @@
   group: 1;
 }
 
-/* Icon Container */
-.brand-icon-wrapper {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  /* Golden Gradient Border Effect */
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.05) 100%);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 12px;
-  
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.navbar-brand:hover .brand-icon-wrapper {
-  transform: rotate(-10deg) scale(1.05);
-  border-color: #D4AF37;
-  background: rgba(212, 175, 55, 0.25);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-}
 
 .brand-icon {
   width: 24px;
@@ -245,11 +222,6 @@
     letter-spacing: 1.5px;
   }
 
-  /* Adjust icon size */
-  .brand-icon-wrapper {
-    width: 38px;
-    height: 38px;
-  }
   
   .brand-icon {
     width: 20px;
@@ -261,3 +233,13 @@
     padding: 0.4rem;
   }
 }
+
+/* Add this to the bottom of Navbar.css */
+
+.navbar-logo-img {
+  height: 50px; /* Slightly larger than navbar */
+  width: auto;
+  object-fit: contain;
+  margin-right: 0.75rem;
+}
+

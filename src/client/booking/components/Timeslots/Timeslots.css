@@ -1,211 +1,166 @@
 /* ═══════════════════════════════════════════════════════════════
-   TIMESLOTS COMPONENT — Reusable, Container-Responsive
+   TIMESLOTS - PRO DESIGN
    Tourki Barbershop Design System
-   
-   USAGE:
-   Place <TimeSlots /> inside any container. It fills 100%
-   of the parent's width and height. All internal sizing is
-   relative.
-   
-   STRUCTURE:
-   .ts
-     .ts-date-badge  (date display — flex-shrink: 0, optional)
-     .ts-grid        (time slots — flex: 1, fills space, scrollable)
-     .ts-preview     (selected time bar — flex-shrink: 0, optional)
    ═══════════════════════════════════════════════════════════════ */
 
-/* === ROOT — fills parent === */
+/* === ROOT === */
 .ts {
-  width: 80%;
+  width: 100%;
+  max-width: 800px;
   height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: clamp(4px, 1%, 10px);
-  overflow: hidden;
+  gap: 1.5rem;
+  padding: 0 0.5rem;
 }
 
 /* ═══════════════════════════════════════════════════════════════
    DATE BADGE
    ═══════════════════════════════════════════════════════════════ */
 .ts-date-badge {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(4px, 1.5%, 10px);
-  padding: clamp(4px, 1%, 10px) clamp(8px, 2.5%, 18px);
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.06), rgba(240, 208, 120, 0.06));
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  border-radius: clamp(8px, 1.5vw, 14px);
+  align-self: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 50px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   flex-shrink: 0;
+  transition: all 0.3s ease;
 }
 
+/* FIX: Explicit Size for Date Icon */
 .ts-date-icon {
-  width: clamp(14px, 3vw, 20px);
-  height: clamp(14px, 3vw, 20px);
+  width: 20px;
+  height: 20px;
+  min-width: 20px; /* Prevent squishing */
   color: #D4AF37;
-  flex-shrink: 0;
 }
 
 .ts-date-text {
-  font-size: clamp(0.7rem, 1.8vw, 0.9rem);
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 700;
   color: #374151;
+  text-transform: capitalize;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   TIME SLOTS GRID — scrollable, fills remaining space
+   TIME SLOTS GRID
    ═══════════════════════════════════════════════════════════════ */
 .ts-grid {
   flex: 1;
-  min-height: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(clamp(70px, 15%, 110px), 1fr));
-  grid-auto-rows: min-content;
-  gap: clamp(4px, 1%, 10px);
-  padding: clamp(2px, 0.5%, 6px);
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-auto-rows: 55px;
+  gap: 12px;
+  padding: 4px;
   overflow-y: auto;
-  overflow-x: hidden;
   align-content: start;
   scrollbar-width: thin;
-  scrollbar-color: rgba(212, 175, 55, 0.2) transparent;
+  scrollbar-color: #D4AF37 transparent;
 }
 
 .ts-grid::-webkit-scrollbar { width: 4px; }
 .ts-grid::-webkit-scrollbar-track { background: transparent; }
-.ts-grid::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.2); border-radius: 4px; }
+.ts-grid::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 4px; }
 
 /* ═══════════════════════════════════════════════════════════════
    INDIVIDUAL TIME SLOT
    ═══════════════════════════════════════════════════════════════ */
 .ts-slot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(3px, 1%, 8px);
-  padding: clamp(6px, 1.5%, 14px) clamp(4px, 1%, 10px);
-  border-radius: clamp(8px, 1.5vw, 14px);
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
-  overflow: hidden;
-  min-height: clamp(36px, 8%, 54px);
-}
-
-.ts-slot-time {
-  font-size: clamp(0.72rem, 1.8vw, 0.95rem);
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  white-space: nowrap;
-}
-
-.ts-slot-status {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(0.6rem, 1.5vw, 0.78rem);
-  line-height: 1;
-}
-
-.ts-check-icon {
-  width: clamp(12px, 3vw, 18px);
-  height: clamp(12px, 3vw, 18px);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   SLOT STATES
-   ═══════════════════════════════════════════════════════════════ */
-
-/* Available */
-.ts-slot.available {
+  gap: 8px;
+  
   background: #FFFFFF;
-  border-color: #E5E7EB;
-  color: #374151;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid #F3F4F6;
+  border-radius: 14px;
+  
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1F2937;
+  
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  animation: slotFadeIn 0.4s ease-out backwards;
 }
 
+@keyframes slotFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* FIX: Explicit Size for Checkmark Icon */
+.ts-check-icon {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* ── STATE: AVAILABLE ── */
 .ts-slot.available:hover {
-  border-color: rgba(212, 175, 55, 0.4);
-  background: rgba(212, 175, 55, 0.04);
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+  transform: translateY(-2px);
+  border-color: #D4AF37;
+  color: #D4AF37;
+  box-shadow: 0 8px 16px rgba(212, 175, 55, 0.15);
+  z-index: 1;
 }
 
-.ts-slot.available:active {
-  transform: scale(0.97);
-}
-
-/* Selected */
+/* ── STATE: SELECTED ── */
 .ts-slot.selected {
-  background: linear-gradient(135deg, #D4AF37, #F0D078);
+  background: linear-gradient(135deg, #D4AF37 0%, #F0D078 100%);
   border-color: transparent;
   color: #FFFFFF;
-  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
-  transform: scale(1.03);
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+  transform: scale(1.05);
+  z-index: 2;
 }
 
-.ts-slot.selected .ts-slot-time { color: #FFFFFF; }
-.ts-slot.selected .ts-slot-status { color: #FFFFFF; }
-
-.ts-slot.selected::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-  animation: tsShimmer 2.5s ease-in-out infinite;
-}
-
-@keyframes tsShimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* Booked (Approved) */
-.ts-slot.booked {
-  background: rgba(239, 68, 68, 0.06);
-  border-color: rgba(239, 68, 68, 0.2);
-  color: #EF4444;
+/* ── STATE: BOOKED / DISABLED ── */
+.ts-slot.booked,
+.ts-slot.pending {
+  background: #F9FAFB;
+  border-color: transparent;
+  color: #D1D5DB;
   cursor: not-allowed;
-  opacity: 0.7;
+  box-shadow: none;
 }
 
 .ts-slot.booked .ts-slot-time {
   text-decoration: line-through;
-  text-decoration-color: rgba(239, 68, 68, 0.5);
-}
-
-/* Pending */
-.ts-slot.pending {
-  background: rgba(245, 158, 11, 0.06);
-  border-color: rgba(245, 158, 11, 0.25);
-  color: #F59E0B;
-  cursor: not-allowed;
-  animation: tsPendingPulse 2s ease-in-out infinite;
-}
-
-@keyframes tsPendingPulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 0.9; }
+  opacity: 0.6;
 }
 
 /* ═══════════════════════════════════════════════════════════════
    EMPTY STATE
    ═══════════════════════════════════════════════════════════════ */
 .ts-empty {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(4px, 1.5%, 10px);
+  margin: auto;
   text-align: center;
+  opacity: 0.7;
 }
 
+/* FIX: Explicit Size for Empty State Icon Wrapper & SVG */
 .ts-empty-icon {
-  width: clamp(32px, 8vw, 52px);
-  height: clamp(32px, 8vw, 52px);
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
   color: #D1D5DB;
+  background: #F3F4F6;
+  border-radius: 50%;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ts-empty-icon svg {
@@ -213,73 +168,48 @@
   height: 100%;
 }
 
-.ts-empty-text {
-  font-size: clamp(0.8rem, 2vw, 1rem);
-  font-weight: 700;
-  color: #6B7280;
-  margin: 0;
-}
-
-.ts-empty-hint {
-  font-size: clamp(0.7rem, 1.8vw, 0.88rem);
-  color: #9CA3AF;
-  margin: 0;
-}
-
 /* ═══════════════════════════════════════════════════════════════
-   SELECTED TIME PREVIEW BAR
+   PREVIEW BAR
    ═══════════════════════════════════════════════════════════════ */
 .ts-preview {
+  margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(4px, 1.5%, 10px);
-  padding: clamp(4px, 1.5%, 10px) clamp(8px, 2.5%, 16px);
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(240, 208, 120, 0.08));
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  border-radius: clamp(6px, 1.5vw, 14px);
-  font-size: clamp(0.65rem, 1.8vw, 0.88rem);
+  gap: 0.6rem;
+  padding: 0.75rem;
+  background: #FFFBEB;
+  border: 1px solid #FCD34D;
+  border-radius: 12px;
+  color: #92400E;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: #374151;
-  flex-shrink: 0;
+  animation: slideUp 0.3s ease-out;
 }
 
+/* FIX: Explicit Size for Preview Icon */
 .ts-preview-icon {
-  width: clamp(14px, 3vw, 20px);
-  height: clamp(14px, 3vw, 20px);
-  color: #D4AF37;
-  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  color: #D97706;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   ACCESSIBILITY
+   RESPONSIVE
    ═══════════════════════════════════════════════════════════════ */
-@media (prefers-reduced-motion: reduce) {
-  .ts-slot,
-  .ts-slot.pending {
-    transition: none;
-    animation: none;
+@media (max-width: 480px) {
+  .ts-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
   }
-
-  .ts-slot.selected::before {
-    animation: none;
-    display: none;
+  
+  .ts-slot {
+    font-size: 0.9rem;
   }
-
-  .ts-slot.available:hover {
-    transform: none;
-  }
-}
-
-.ts-slot:focus-visible {
-  outline: 2px solid #D4AF37;
-  outline-offset: 2px;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   RTL SUPPORT — only text direction, not layout
-   ═══════════════════════════════════════════════════════════════ */
-[dir="rtl"] .ts-date-badge,
-[dir="rtl"] .ts-preview {
-  direction: rtl;
 }

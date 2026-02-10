@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ProgressDots from './components/ProgressDots';
+import ProgressDots from './components/ProgressDots/ProgressDots';
 import Step1Date from './steps/Step1Date/Step1Date';
 import Step2Time from './steps/Step2Time/Step2Time';
 import Step3ClientInfo from './steps/Step3ClientInfo/Step3ClientInfo';

@@ -234,3 +234,11 @@
   .social-icons-grid { gap: 1rem; }
   .social-tile { width: 48px; height: 48px; } /* Slightly larger touch target */
 }
+
+/* Add to Footer.css */
+.footer-logo-img {
+  height: 50px; /* Slightly larger than navbar */
+  width: auto;
+  object-fit: contain;
+  margin-right: 0.75rem;
+}
