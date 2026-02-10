@@ -1,0 +1,218 @@
+/* ═══════════════════════════════════════════════════════════════
+   APPROVALS PAGE — MASTER LUXURY DESIGN (UPDATED BUTTONS)
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --app-bg: #ffffff;
+  --app-hover: #f9fafb;
+  --app-border: #f3f4f6;
+  --gold: #d4af37;
+  --gold-dim: rgba(212, 175, 55, 0.1);
+  --success: #10B981;
+  --danger: #EF4444;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+}
+
+.approvals-container {
+  width: 100%;
+  animation: fadeIn 0.4s ease-out;
+  padding-bottom: 2rem;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* === PAGE HEADER === */
+.page-header {
+  margin-bottom: 2rem;
+  text-align: right;
+}
+
+.page-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+  background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* === TABLE CARD CONTAINER === */
+.approvals-table-card {
+  background: var(--app-bg);
+  border-radius: 24px;
+  box-shadow: 
+    0 20px 40px -5px rgba(0, 0, 0, 0.05),
+    0 8px 16px -8px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(0,0,0,0.02);
+  overflow: hidden;
+}
+
+/* === TABLE HEADER (Desktop) === */
+.table-header {
+  display: grid;
+  /* Columns: Client | Phone | Appt Date | Created Date | Actions */
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 120px;
+  padding: 1.25rem 2rem;
+  background: #f9fafb;
+  border-bottom: 1px solid var(--app-border);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* === DATA ROWS === */
+.approval-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 120px;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--app-border);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.approval-row:last-child { border-bottom: none; }
+
+.approval-row:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  z-index: 10;
+}
+
+.approval-row::before {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.approval-row:hover::before { opacity: 1; }
+
+/* === COLUMN STYLING === */
+.col-client { display: flex; align-items: center; gap: 12px; }
+
+.client-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--gold-dim); color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.9rem; border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.client-name { font-weight: 700; color: var(--text-main); font-size: 1rem; }
+
+.data-text { color: var(--text-main); font-weight: 500; font-size: 0.95rem; }
+.data-sub { display: block; font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+.col-created .data-text { color: var(--text-muted); font-size: 0.9rem; }
+
+/* Actions Buttons (Desktop Default) */
+.col-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+.action-btn {
+  width: 36px; height: 36px; border-radius: 10px; border: none;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-approve { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+.btn-approve:hover { background: var(--success); color: white; transform: scale(1.1); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
+
+.btn-reject { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+.btn-reject:hover { background: var(--danger); color: white; transform: scale(1.1); box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE (Cards Transformation)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  
+  .table-header { display: none; }
+  
+  .approvals-table-card { background: transparent; box-shadow: none; overflow: visible; }
+
+  .approval-row {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    border: 1px solid var(--app-border);
+    gap: 12px;
+  }
+
+  /* Card Layout */
+  .col-client {
+    width: 100%;
+    justify-content: flex-start; /* Name on Right */
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  /* Avatar on Left (as per screenshot) or Right - keeping RTL flow */
+  .client-avatar { order: -1; margin-left: 10px; } 
+
+  /* Info Grid */
+  .col-phone, .col-date, .col-created {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #F9FAFB;
+    padding-bottom: 8px;
+  }
+  
+  .col-created { border-bottom: none; } /* Last item no border */
+
+  /* Labels */
+  .col-phone::before { content: 'טלפון:'; font-weight: 700; color: #9ca3af; font-size: 0.9rem; }
+  .col-date::before { content: 'מועד התור:'; font-weight: 700; color: #9ca3af; font-size: 0.9rem; }
+  .col-created::before { content: 'נוצר ב:'; font-weight: 700; color: #9ca3af; font-size: 0.9rem; }
+
+  /* === BIG BUTTONS AT BOTTOM (New Logic) === */
+  .col-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #F3F4F6;
+  }
+
+  .action-btn {
+    flex: 1; /* Take full available width */
+    height: 44px; /* Taller touch target */
+    border-radius: 12px;
+    font-size: 1.2rem; /* Larger Icons */
+  }
+  
+  /* Reset Hover for Touch Devices */
+  .action-btn:hover { transform: none; }
+  .action-btn:active { transform: scale(0.96); }
+
+  /* Accent Line */
+  .approval-row::before {
+    width: 4px; height: 100%; right: 0; top: 0;
+    opacity: 1; border-radius: 0 4px 4px 0;
+  }
+}
+
+/* Empty State */
+.empty-state { text-align: center; padding: 4rem 1rem; color: var(--text-muted); }
+.empty-icon { width: 64px; height: 64px; color: #E5E7EB; margin-bottom: 1rem; }

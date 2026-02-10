@@ -1,0 +1,136 @@
+/* ═══════════════════════════════════════════════════════════════
+   ATTENDANCE TABLE — ALIGNMENT FIX
+   ═══════════════════════════════════════════════════════════════ */
+
+.attendance-card {
+  background: #FFFFFF;
+  border-radius: 24px;
+  box-shadow: 
+    0 10px 30px -5px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(0,0,0,0.02);
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* === GRID LAYOUT === */
+.att-header, .att-row {
+  display: grid;
+  /* Columns: Name (wide) | Phone (Fixed Width) | Time (Fixed) | Actions */
+  grid-template-columns: 1.5fr 180px 100px 120px; 
+  padding: 1.25rem 2rem;
+  align-items: center;
+  gap: 1.5rem; /* Increased gap for better separation */
+}
+
+/* Header Styling */
+.att-header {
+  background: #F9FAFB;
+  border-bottom: 1px solid #E5E7EB;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Center specific headers to match data */
+.att-header span:nth-child(2) { text-align: right; } /* Phone Header */
+.att-header span:nth-child(3) { text-align: center; } /* Time Header */
+
+/* Row Styling */
+.att-row {
+  background: #FFFFFF;
+  border-bottom: 1px solid #F3F4F6;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.att-row:hover {
+  background: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  z-index: 10;
+  border-color: transparent;
+}
+
+.att-row::before {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: #D4AF37;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.att-row:hover::before { opacity: 1; }
+
+/* === COLUMNS === */
+
+/* 1. Name & Avatar */
+.col-name-wrapper { display: flex; align-items: center; gap: 12px; }
+
+.att-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(212, 175, 55, 0.1); color: #D4AF37;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.9rem; border: 1px solid rgba(212, 175, 55, 0.2);
+  flex-shrink: 0;
+}
+
+.att-name { font-weight: 700; color: #1F2937; font-size: 1rem; }
+
+/* 2. Phone (ALIGNED RIGHT to match Hebrew reading flow, under header) */
+.att-phone {
+  color: #6B7280;
+  font-family: 'Monaco', monospace;
+  font-size: 0.95rem;
+  text-align: right; /* Ensures alignment with header */
+  width: 100%;
+}
+
+/* 3. Time Badge */
+.att-time-badge {
+  background: #F3F4F6; color: #374151; font-weight: 800;
+  padding: 6px 0; border-radius: 8px; text-align: center; width: 100%; font-size: 0.95rem;
+}
+
+/* 4. Actions */
+.att-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.btn-action {
+  width: 40px; height: 40px; border-radius: 10px; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;
+}
+
+.btn-came { background: #ECFDF5; color: #10B981; }
+.btn-came:hover { background: #10B981; color: #FFFFFF; transform: scale(1.1); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
+
+.btn-noshow { background: #FEF2F2; color: #EF4444; }
+.btn-noshow:hover { background: #EF4444; color: #FFFFFF; transform: scale(1.1); box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
+
+/* === MOBILE === */
+@media (max-width: 768px) {
+  .attendance-card { background: transparent; box-shadow: none; overflow: visible; }
+  .att-header { display: none; }
+  
+  .att-row {
+    display: flex; flex-direction: column; gap: 12px;
+    background: #FFFFFF; border-radius: 16px; margin-bottom: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 1px solid #F3F4F6;
+    padding: 1.25rem; align-items: flex-start;
+  }
+  
+  .col-name-wrapper { width: 100%; border-bottom: 1px solid #F3F4F6; padding-bottom: 10px; margin-bottom: 4px; }
+  
+  .att-phone { text-align: left; display: flex; justify-content: space-between; width: 100%; }
+  .att-phone::after { content: 'טלפון'; color: #9CA3AF; font-size: 0.8rem; font-family: sans-serif; }
+  
+  .att-time-wrapper { display: flex; width: 100%; justify-content: space-between; align-items: center; }
+  .att-time-wrapper::after { content: 'שעת תור'; color: #9CA3AF; font-size: 0.8rem; }
+  .att-time-badge { width: auto; padding: 4px 12px; }
+  
+  .att-actions { width: 100%; justify-content: space-between; padding-top: 10px; border-top: 1px solid #F3F4F6; }
+  .btn-action { flex: 1; border-radius: 8px; }
+}

@@ -3,6 +3,11 @@ import MonthlyCalendar from './MonthlyCalendar/MonthlyCalendar';
 import DailyAppointmentsTable from './DailyAppointmentsTable/DailyAppointmentsTable';
 import AppointmentCard from './AppointmentCard/AppointmentCard';
 import UpdateForm from './UpdateForm/UpdateForm';
+import { 
+  getCalendarData, 
+  getAppointmentsByDateObject,
+  formatDateKey 
+} from '../../../utils/mockDataHelpers';
 import './SchedulePage.css';
 
 const SchedulePage = () => {
@@ -10,15 +15,11 @@ const SchedulePage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
 
-  // --- MOCK DATA ---
-  const [appointments, setAppointments] = useState([
-    { id: 1, time: '10:00', name: 'ישראל ישראלי', phone: '050-1234567', whatsapp: true },
-    { id: 2, time: '10:30', name: 'דני דנינו', phone: '052-9876543', whatsapp: false },
-    { id: 3, time: '11:00', name: 'יוסי כהן', phone: '054-5555555', whatsapp: true },
-  ]);
+  // Load calendar data from mock
+  const calendarData = getCalendarData();
 
   // --- HANDLERS ---
-  const handleDaySelect = (date) => {
+  const handleDaySelect = (date, dayInfo) => {
     setSelectedDate(date);
     setCurrentView('table');
   };
@@ -29,13 +30,15 @@ const SchedulePage = () => {
   };
 
   const handleDelete = (id) => {
-    setAppointments(prev => prev.filter(a => a.id !== id));
+    // In real app, this would call API
+    console.log('Delete appointment:', id);
     setCurrentView('table'); // Go back after delete
   };
 
   const handleSave = (updatedAppt) => {
-    setAppointments(prev => prev.map(a => a.id === updatedAppt.id ? updatedAppt : a));
-    setSelectedAppointment(updatedAppt); // Update local view
+    // In real app, this would call API
+    console.log('Update appointment:', updatedAppt);
+    setSelectedAppointment(updatedAppt);
     setCurrentView('card'); // Go back to viewer
   };
 
@@ -44,6 +47,11 @@ const SchedulePage = () => {
     else if (currentView === 'card') setCurrentView('table');
     else if (currentView === 'table') setCurrentView('calendar');
   };
+
+  // Get appointments for selected date
+  const dailyAppointments = selectedDate 
+    ? getAppointmentsByDateObject(selectedDate)
+    : [];
 
   return (
     <div className="schedule-container">
@@ -58,7 +66,14 @@ const SchedulePage = () => {
             חזור
           </button>
           
-          {currentView === 'table' && <h3>תורים לתאריך {selectedDate?.toLocaleDateString('he-IL')}</h3>}
+          {currentView === 'table' && (
+            <h3>תורים לתאריך {selectedDate?.toLocaleDateString('he-IL', { 
+              weekday: 'long', 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}</h3>
+          )}
           {currentView === 'card' && <h3>פרטי תור</h3>}
           {currentView === 'edit' && <h3>עריכת תור</h3>}
         </div>
@@ -66,13 +81,16 @@ const SchedulePage = () => {
 
       {/* VIEW SWITCHER */}
       {currentView === 'calendar' && (
-        <MonthlyCalendar onDaySelect={handleDaySelect} />
+        <MonthlyCalendar 
+          appointmentsData={calendarData}
+          onDaySelect={handleDaySelect} 
+        />
       )}
 
       {currentView === 'table' && (
         <DailyAppointmentsTable 
           date={selectedDate} 
-          appointments={appointments}
+          appointments={dailyAppointments}
           onSelect={handleAppointmentSelect}
         />
       )}
@@ -89,6 +107,7 @@ const SchedulePage = () => {
         <UpdateForm 
           appointment={selectedAppointment} 
           onSave={handleSave}
+          onCancel={handleBack}
         />
       )}
 

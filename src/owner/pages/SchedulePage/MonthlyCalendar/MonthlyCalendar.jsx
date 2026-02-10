@@ -1,19 +1,10 @@
 import { useState } from 'react';
-import './MonthlyCalendar.css'; // Importing the separated CSS
+import './MonthlyCalendar.css';
 
-const MonthlyCalendar = ({ onDaySelect }) => {
-  // Current Date State (Starting Feb 2026 as per your request)
-  const [currentDate, setCurrentDate] = useState(new Date(2026, 1, 1)); 
+const MonthlyCalendar = ({ onDaySelect, appointmentsData = {} }) => {
+  const [currentDate, setCurrentDate] = useState(new Date(2026, 1, 1));
 
-  // MOCK DATA (In real app, fetch this from API)
-  const monthData = {
-    5: { count: 3, hasPending: false },
-    12: { count: 8, hasPending: true }, // Alert
-    18: { count: 5, hasPending: false },
-    24: { count: 2, hasPending: true }, // Alert
-  };
-
-  // --- Calendar Logic ---
+  // Calendar calculation logic
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   };
@@ -22,10 +13,18 @@ const MonthlyCalendar = ({ onDaySelect }) => {
     return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
   };
 
-  const daysInMonth = getDaysInMonth(currentDate);
-  const firstDay = getFirstDayOfMonth(currentDate); // 0 = Sunday
+  const isToday = (day) => {
+    const today = new Date();
+    return (
+      day === today.getDate() &&
+      currentDate.getMonth() === today.getMonth() &&
+      currentDate.getFullYear() === today.getFullYear()
+    );
+  };
 
-  // Navigation
+  const daysInMonth = getDaysInMonth(currentDate);
+  const firstDay = getFirstDayOfMonth(currentDate);
+
   const goToPrevMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
   };
@@ -39,80 +38,161 @@ const MonthlyCalendar = ({ onDaySelect }) => {
     'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'
   ];
 
-  // --- Render Grid ---
+  const dayNames = ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳'];
+
+  // Generate date key for appointments lookup
+  const getDateKey = (day) => {
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const dayStr = String(day).padStart(2, '0');
+    return `${year}-${month}-${dayStr}`;
+  };
+
   const renderCalendarCells = () => {
     const cells = [];
     
-    // 1. Empty slots (Spacer for previous month)
+    // Empty spacer cells
     for (let i = 0; i < firstDay; i++) {
-      cells.push(<div key={`empty-${i}`} className="calendar-cell empty"></div>);
+      cells.push(
+        <div key={`empty-${i}`} className="calendar-cell calendar-cell--empty" aria-hidden="true"></div>
+      );
     }
 
-    // 2. Actual Days
+    // Actual day cells
     for (let day = 1; day <= daysInMonth; day++) {
-      const dayInfo = monthData[day];
-      const isPending = dayInfo?.hasPending;
-      const count = dayInfo?.count || 0;
+      const dateKey = getDateKey(day);
+      const dayInfo = appointmentsData[dateKey] || { count: 0, hasPending: false };
+      const isPending = dayInfo.hasPending;
+      const count = dayInfo.count || 0;
+      const today = isToday(day);
       
+      const cellClasses = [
+        'calendar-cell',
+        isPending && 'calendar-cell--pending',
+        today && 'calendar-cell--today',
+        count > 0 && 'calendar-cell--has-appointments'
+      ].filter(Boolean).join(' ');
+
       cells.push(
         <div 
           key={day} 
-          className={`calendar-cell ${isPending ? 'has-pending' : ''}`}
-          onClick={() => onDaySelect(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))}
+          className={cellClasses}
+          onClick={() => onDaySelect(new Date(currentDate.getFullYear(), currentDate.getMonth(), day), dayInfo)}
           role="button"
           tabIndex={0}
+          aria-label={`${day} ${monthNames[currentDate.getMonth()]}, ${count} תורים${isPending ? ', יש תורים ממתינים לאישור' : ''}`}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onDaySelect(new Date(currentDate.getFullYear(), currentDate.getMonth(), day), dayInfo);
+            }
+          }}
         >
-          <span className="cell-date">{day}</span>
+          {/* Date number with today indicator */}
+          <div className="cell-header">
+            <span className="cell-date">{day}</span>
+            {today && <span className="cell-today-dot" aria-label="היום"></span>}
+          </div>
           
-          {/* Badge Logic: Only show if there are appointments */}
+          {/* Pending warning icon */}
+          {isPending && (
+            <div className="cell-pending-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 20h20L12 2zm0 5.5l6.5 11h-13L12 7.5zM11 10v4h2v-4h-2zm0 5v2h2v-2h-2z"/>
+              </svg>
+            </div>
+          )}
+
+          {/* Appointment badge */}
           {count > 0 && (
-            <div className="appt-badge">
-              {count} <span>תורים</span>
-              {isPending && " ⚠️"}
+            <div className="cell-badge-wrapper">
+              {/* Desktop: Pill badge */}
+              <div className="cell-badge cell-badge--pill">
+                <span className="badge-count">{count}</span>
+                <span className="badge-text">{count === 1 ? 'תור' : 'תורים'}</span>
+              </div>
+              
+              {/* Mobile: Circle badge */}
+              <div className="cell-badge cell-badge--circle">
+                {count}
+              </div>
             </div>
           )}
         </div>
       );
     }
+    
     return cells;
   };
 
+  // Calculate total pending count for header badge
+  const totalPending = Object.values(appointmentsData).filter(d => d.hasPending).length;
+
   return (
-    <div className="calendar-wrapper">
+    <div className="monthly-calendar" dir="rtl">
       
-      {/* Header */}
+      {/* Header with navigation */}
       <div className="calendar-header">
-        <button className="nav-btn" onClick={goToPrevMonth} title="חודש קודם">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+        <button 
+          className="calendar-nav calendar-nav--prev" 
+          onClick={goToPrevMonth}
+          aria-label="חודש קודם"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
             <polyline points="9 18 15 12 9 6" />
           </svg>
         </button>
         
-        <h3 className="month-title">
-          {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-        </h3>
+        <div className="calendar-title-wrapper">
+          <h2 className="calendar-title">
+            {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+          </h2>
+          {totalPending > 0 && (
+            <span className="calendar-pending-badge" title={`${totalPending} ימים עם תורים ממתינים`}>
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 20h20L12 2zm0 5.5l6.5 11h-13L12 7.5zM11 10v4h2v-4h-2zm0 5v2h2v-2h-2z"/>
+              </svg>
+              {totalPending}
+            </span>
+          )}
+        </div>
         
-        <button className="nav-btn" onClick={goToNextMonth} title="חודש הבא">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+        <button 
+          className="calendar-nav calendar-nav--next" 
+          onClick={goToNextMonth}
+          aria-label="חודש הבא"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </button>
       </div>
 
-      {/* Week Header */}
-      <div className="days-header">
-        <span className="day-label">א׳</span>
-        <span className="day-label">ב׳</span>
-        <span className="day-label">ג׳</span>
-        <span className="day-label">ד׳</span>
-        <span className="day-label">ה׳</span>
-        <span className="day-label">ו׳</span>
-        <span className="day-label">ש׳</span>
+      {/* Days of week header */}
+      <div className="calendar-days-header">
+        {dayNames.map((day, idx) => (
+          <div key={idx} className="calendar-day-label" role="columnheader">
+            <span className="day-label-full">{day}</span>
+            <span className="day-label-short">{day.charAt(0)}</span>
+          </div>
+        ))}
       </div>
 
-      {/* Days Grid */}
-      <div className="calendar-grid">
+      {/* Calendar grid */}
+      <div className="calendar-grid" role="grid">
         {renderCalendarCells()}
+      </div>
+
+      {/* Legend for mobile users */}
+      <div className="calendar-legend">
+        <div className="legend-item">
+          <div className="legend-icon legend-icon--pending"></div>
+          <span>תור ממתין לאישור</span>
+        </div>
+        <div className="legend-item">
+          <div className="legend-icon legend-icon--today"></div>
+          <span>היום</span>
+        </div>
       </div>
     </div>
   );

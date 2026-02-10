@@ -1,0 +1,175 @@
+/* ═══════════════════════════════════════════════════════════════
+   SETTINGS PAGE — MASTER LUXURY DESIGN
+   ═══════════════════════════════════════════════════════════════ */
+
+.settings-container {
+  width: 100%;
+  max-width: 800px; /* Centered focus */
+  margin: 0 auto;
+  animation: fadeIn 0.4s ease-out;
+  padding-bottom: 2rem;
+}
+
+@keyframes fadeIn { 
+  from { opacity: 0; transform: translateY(10px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+
+/* === PAGE HEADER === */
+.settings-header {
+  margin-bottom: 2rem;
+  text-align: right;
+}
+
+.settings-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: #1F2937;
+  margin: 0;
+  background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.settings-subtitle {
+  color: #6B7280;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* === SECTIONS (Cards) === */
+.settings-section {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  margin-bottom: 2rem;
+  box-shadow: 
+    0 20px 40px -5px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(0,0,0,0.02);
+  transition: transform 0.2s ease;
+}
+
+.settings-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1F2937;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-icon {
+  color: #D4AF37; /* Gold */
+}
+
+/* === FORM INPUTS === */
+.form-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #374151;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px 16px;
+  padding-right: 44px; /* Space for icon RTL */
+  border-radius: 12px;
+  border: 1px solid #E5E7EB;
+  background: #F9FAFB;
+  font-size: 1rem;
+  color: #1F2937;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.input-field:focus {
+  background: #FFFFFF;
+  border-color: #D4AF37;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+}
+
+.input-icon {
+  position: absolute;
+  right: 14px;
+  color: #9CA3AF;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.input-field:focus + .input-icon {
+  color: #D4AF37;
+}
+
+/* === BUTTONS === */
+.form-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.save-btn {
+  background: #1F2937;
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.save-btn:hover {
+  background: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.save-btn.secondary {
+  background: #FFFFFF;
+  color: #D4AF37;
+  border: 2px solid #D4AF37;
+}
+
+.save-btn.secondary:hover {
+  background: #FFFBEB;
+}
+
+/* === MOBILE === */
+@media (max-width: 600px) {
+  .settings-section {
+    padding: 1.25rem;
+    border-radius: 16px;
+  }
+  
+  .save-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

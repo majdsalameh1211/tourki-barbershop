@@ -1,0 +1,99 @@
+/* ═══════════════════════════════════════════════════════════════
+   CLIENTS PAGE MAIN LAYOUT
+   ═══════════════════════════════════════════════════════════════ */
+
+.clients-page-container {
+  width: 100%;
+  animation: fadeIn 0.5s ease-out;
+  padding-bottom: 2rem;
+}
+
+@keyframes fadeIn { 
+  from { opacity: 0; transform: translateY(10px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+
+/* === PAGE HEADER === */
+.clients-header {
+  margin-bottom: 2rem;
+  text-align: right;
+  padding: 0 0.5rem;
+}
+
+.clients-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: #1F2937;
+  margin: 0;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.clients-subtitle {
+  color: #6B7280;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+/* === LUXURY TOGGLE SWITCH === */
+.view-toggle-wrapper {
+  display: flex;
+  background: #F3F4F6;
+  padding: 5px;
+  border-radius: 14px;
+  width: fit-content;
+  margin-bottom: 2rem;
+  border: 1px solid #E5E7EB;
+  gap: 5px;
+}
+
+.toggle-option {
+  padding: 12px 24px;
+  border: none;
+  background: transparent;
+  color: #6B7280;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.toggle-option:hover {
+  color: #374151;
+  background: rgba(255,255,255,0.5);
+}
+
+.toggle-option.active {
+  background: #FFFFFF;
+  color: #1F2937;
+  font-weight: 800;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transform: scale(1.02);
+}
+
+.toggle-option.active svg {
+  color: #D4AF37; /* Gold Icon when active */
+}
+
+/* Mobile Toggle Adjustment */
+@media (max-width: 600px) {
+  .view-toggle-wrapper {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .toggle-option {
+    flex: 1;
+    justify-content: center;
+    padding: 12px 10px;
+    font-size: 0.85rem;
+  }
+}
