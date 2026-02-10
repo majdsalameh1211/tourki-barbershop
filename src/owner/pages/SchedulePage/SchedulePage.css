@@ -1,0 +1,161 @@
+/* ═══════════════════════════════════════════════════════════════
+   SCHEDULE PAGE - GLOBAL STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+.schedule-container {
+  width: 100%;
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* === CALENDAR GRID === */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  background: #FFFFFF;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.month-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1F2937;
+}
+
+.nav-btn {
+  background: #F3F4F6;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  color: #4B5563;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-btn:hover {
+  background: #D4AF37;
+  color: #FFFFFF;
+}
+
+/* Days Header (Sun, Mon...) */
+.days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.day-label {
+  font-weight: 700;
+  color: #9CA3AF;
+  font-size: 0.9rem;
+}
+
+/* Calendar Body */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+/* === CALENDAR CELL (The Day Square) === */
+.calendar-cell {
+  background: #FFFFFF;
+  border-radius: 12px;
+  min-height: 100px; /* Tall enough for content */
+  padding: 0.75rem;
+  border: 1px solid rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.calendar-cell:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  border-color: #D4AF37;
+}
+
+/* PENDING ALERT (Yellow Background) */
+.calendar-cell.has-pending {
+  background: #FEF9C3; /* Light Yellow */
+  border-color: #FDE047; /* Yellow Border */
+}
+
+/* Day Number */
+.cell-date {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #374151;
+  text-align: right;
+}
+
+.calendar-cell.empty {
+  background: transparent;
+  border: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Appointment Badge */
+.appt-badge {
+  align-self: flex-end;
+  background: #F3F4F6;
+  color: #6B7280;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+}
+
+.calendar-cell.has-pending .appt-badge {
+  background: #FACC15; /* Strong Yellow */
+  color: #854D0E; /* Dark Yellow Text */
+}
+
+/* === BACK BUTTON (Global for sub-views) === */
+.back-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid #D4AF37;
+  color: #D4AF37;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: #D4AF37;
+  color: #FFFFFF;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

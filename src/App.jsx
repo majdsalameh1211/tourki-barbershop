@@ -4,10 +4,17 @@ import Footer from './shared/Footer/Footer';
 import LandingPage from './client/landing/LandingPage';
 import BookingPage from './client/booking/BookingPage';
 import LoginPage from './owner/Login/LoginPage';
-import OwnerLayout from './owner/Layout/OwnerLayout'; 
+import OwnerLayout from './owner/Layout/OwnerLayout';
+
+// IMPORT NEW PAGES
+import SchedulePage from './owner/pages/SchedulePage/SchedulePage';
+import ApprovalsPage from './owner/pages/ApprovalsPage/ApprovalsPage';
+import ClientsPage from './owner/pages/ClientsPage/ClientsPage';
+import InfoPage from './owner/pages/InfoPage/InfoPage';
+import SettingsPage from './owner/pages/SettingsPage/SettingsPage';
+
 import './App.css';
 
-// Client Layout (Navbar + Footer)
 const ClientLayout = () => (
   <>
     <Navbar />
@@ -31,12 +38,14 @@ function App() {
           {/* === OWNER AUTH === */}
           <Route path="/login" element={<LoginPage />} />
 
-          {/* === OWNER PORTAL (Protected Shell) === */}
+          {/* === OWNER PORTAL === */}
           <Route path="/owner" element={<OwnerLayout />}>
-            {/* For now, a temporary empty page. 
-               Later, this will be your Dashboard component. 
-            */}
-            <Route index element={<h1 style={{color: '#D4AF37'}}>Owner Dashboard (Coming Soon)</h1>} />
+            <Route index element={<SchedulePage />} /> {/* Default to Schedule */}
+            <Route path="schedule" element={<SchedulePage />} />
+            <Route path="approvals" element={<ApprovalsPage />} />
+            <Route path="clients" element={<ClientsPage />} />
+            <Route path="info" element={<InfoPage />} />
+            <Route path="settings" element={<SettingsPage />} />
           </Route>
           
         </Routes>

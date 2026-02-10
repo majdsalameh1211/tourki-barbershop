@@ -1,0 +1,96 @@
+/* ═══════════════════════════════════════════════════════════════
+   DAILY APPOINTMENTS TABLE - RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+
+.daily-table-container {
+  background: #FFFFFF;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  border: 1px solid rgba(0,0,0,0.05);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* === HEADER ROW (Desktop) === */
+.table-header-row {
+  display: grid;
+  grid-template-columns: 80px 1.5fr 1fr 60px 80px; /* Time, Name, Phone, WA, Action */
+  padding: 1rem 1.5rem;
+  background: #F9FAFB;
+  border-bottom: 1px solid #E5E7EB;
+  font-weight: 700;
+  color: #6B7280;
+  font-size: 0.85rem;
+}
+
+/* === DATA ROWS === */
+.appt-row {
+  display: grid;
+  grid-template-columns: 80px 1.5fr 1fr 60px 80px;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #F3F4F6;
+  transition: background 0.2s;
+}
+
+.appt-row:last-child { border-bottom: none; }
+.appt-row:hover { background: #FEFCE8; /* Very light gold tint */ }
+
+/* Columns Styling */
+.col-time { font-weight: 700; color: #1F2937; font-family: monospace; font-size: 1.1rem; }
+.col-name { font-weight: 600; color: #374151; }
+.col-phone { color: #6B7280; font-size: 0.9rem; text-decoration: none; display: block; }
+.col-phone:hover { color: #D4AF37; text-decoration: underline; }
+
+.col-whatsapp { display: flex; align-items: center; }
+.wa-icon {
+  width: 20px; height: 20px;
+  color: #10B981; /* WhatsApp Green */
+  opacity: 0.2; 
+}
+.wa-icon.active { opacity: 1; }
+
+.col-action { text-align: left; }
+.view-btn {
+  background: rgba(212, 175, 55, 0.1);
+  color: #D4AF37;
+  border: none;
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.view-btn:hover { background: #D4AF37; color: #FFF; transform: scale(1.05); }
+
+/* 📱 MOBILE TRANSFORMATION: TABLE -> TILES */
+@media (max-width: 768px) {
+  .table-header-row { display: none; /* Hide header on mobile */ }
+
+  .appt-row {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: 
+      "time action"
+      "name action"
+      "phone action";
+    gap: 4px;
+    padding: 1rem;
+    border-bottom: 1px solid #E5E7EB;
+  }
+
+  .col-time { grid-area: time; font-size: 1rem; color: #D4AF37; }
+  .col-name { grid-area: name; font-size: 1.1rem; font-weight: 800; }
+  .col-phone { grid-area: phone; font-size: 0.9rem; }
+  .col-whatsapp { display: none; } /* Hide WA icon to save space */
+  
+  .col-action { 
+    grid-area: action; 
+    display: flex; 
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+  }
+}

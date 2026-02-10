@@ -1,0 +1,172 @@
+/* ═══════════════════════════════════════════════════════════════
+   MONTHLY CALENDAR - LUXURY RESPONSIVE THEME
+   ═══════════════════════════════════════════════════════════════ */
+
+.calendar-wrapper {
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  border-radius: clamp(12px, 2.5vw, 24px);
+  padding: clamp(10px, 3%, 24px);
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 10px 30px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(212, 175, 55, 0.08); /* Subtle Gold Ring */
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* === HEADER (Month Nav) === */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: clamp(10px, 3%, 20px);
+  padding-bottom: 10px;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.month-title {
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  font-weight: 800;
+  color: #1F2937;
+  letter-spacing: -0.5px;
+}
+
+.nav-btn {
+  width: clamp(32px, 8vw, 42px);
+  height: clamp(32px, 8vw, 42px);
+  border-radius: 12px;
+  border: 1px solid #E5E7EB;
+  background: #FFFFFF;
+  color: #6B7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-btn:hover {
+  background: #D4AF37;
+  border-color: #D4AF37;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.nav-btn svg {
+  width: clamp(16px, 4vw, 20px);
+  height: clamp(16px, 4vw, 20px);
+}
+
+/* === DAYS HEADER (Sun, Mon...) === */
+.days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(4px, 1%, 10px);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.day-label {
+  font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+  font-weight: 700;
+  color: #9CA3AF;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* === THE GRID === */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  /* Rows will auto-fill available height */
+  grid-auto-rows: 1fr; 
+  gap: clamp(4px, 1%, 10px);
+  flex: 1; /* Fills remaining vertical space */
+}
+
+/* === DATE CELL === */
+.calendar-cell {
+  background: #FFFFFF;
+  border: 1px solid #F3F4F6;
+  border-radius: clamp(8px, 2vw, 14px);
+  padding: clamp(4px, 1.5vw, 12px);
+  min-height: clamp(60px, 12vw, 110px); /* Responsive Height */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.calendar-cell:hover {
+  border-color: #D4AF37;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  z-index: 2;
+}
+
+/* Empty Cell */
+.calendar-cell.empty {
+  background: transparent;
+  border: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Date Number */
+.cell-date {
+  font-weight: 700;
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
+  color: #374151;
+  text-align: right; /* RTL Standard */
+}
+
+/* === APPOINTMENT BADGE === */
+.appt-badge {
+  background: #F3F4F6;
+  color: #6B7280;
+  font-size: clamp(0.65rem, 2vw, 0.85rem);
+  font-weight: 700;
+  padding: 4px 2px;
+  border-radius: 6px;
+  text-align: center;
+  width: 100%;
+}
+
+/* === PENDING STATE (The "Yellow" Alert) === */
+.calendar-cell.has-pending {
+  background: #FFFBEB; /* Premium Cream/Yellow */
+  border: 1px solid #FCD34D; /* Gold-Yellow Border */
+}
+
+.calendar-cell.has-pending .cell-date {
+  color: #B45309; /* Dark Amber */
+}
+
+.calendar-cell.has-pending .appt-badge {
+  background: #F59E0B; /* Solid Amber/Gold */
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+}
+
+/* === MOBILE OPTIMIZATIONS === */
+@media (max-width: 480px) {
+  .calendar-wrapper {
+    padding: 10px;
+  }
+  
+  /* Hide the text "Appointments" on tiny screens, just show number */
+  .appt-badge span {
+    display: none;
+  }
+  
+  .appt-badge::after {
+    content: ' תורים';
+    font-size: 0.7em;
+  }
+}

@@ -1,0 +1,74 @@
+/* ═══════════════════════════════════════════════════════════════
+   OWNER PAGES — GLOBAL THEME
+   Applies to: Schedule, Approvals, Clients, Info, Settings
+   ═══════════════════════════════════════════════════════════════ */
+
+.owner-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === PAGE HEADER === */
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  /* Gold Gradient Text */
+  background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.5px;
+}
+
+.page-subtitle {
+  color: #6B7280; /* Cool Grey */
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* === CONTENT CARD === */
+.content-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 2rem;
+  
+  /* Luxury Shadow */
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.05), 
+    0 1px 3px rgba(0, 0, 0, 0.02),
+    0 0 0 1px rgba(212, 175, 55, 0.1); /* Subtle Gold Ring */
+  
+  min-height: 400px; /* Placeholder height */
+}
+
+/* === EMPTY STATE PLACEHOLDER (For now) === */
+.placeholder-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: #9CA3AF;
+  text-align: center;
+  border: 2px dashed #E5E7EB;
+  border-radius: 12px;
+}
+
+.placeholder-icon {
+  width: 64px;
+  height: 64px;
+  color: #D4AF37;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}

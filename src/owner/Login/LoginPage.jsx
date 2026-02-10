@@ -5,7 +5,6 @@ import './LoginPage.css';
 const LoginPage = () => {
   const navigate = useNavigate();
   
-  // Hardcoded Credentials
   const [email, setEmail] = useState('test@test.com');
   const [password, setPassword] = useState('12345678');
   
@@ -16,11 +15,9 @@ const LoginPage = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     if (email === 'test@test.com' && password === '12345678') {
-      console.log('Login Successful');
-      // REDIRECT to the new Owner Layout
       navigate('/owner'); 
     } else {
-      alert('Invalid credentials. Try test@test.com / 12345678');
+      alert('פרטי התחברות שגויים');
     }
   };
 
@@ -32,20 +29,19 @@ const LoginPage = () => {
 
   const verifyPasscodeAndReveal = () => {
     if (passcode === 'test') {
-      alert(`CREDENTIALS REVEALED:\n\nEmail: ${email}\nPassword: ${password}`);
+      alert(`פרטי המערכת:\n\nאימייל: ${email}\nסיסמה: ${password}`);
       setShowForgotModal(false);
     } else {
-      setError('Incorrect passcode');
+      setError('קוד שגוי');
     }
   };
 
   return (
-    <div className="login-page">
+    // FORCE RTL
+    <div className="login-page" dir="rtl">
       <div className="login-container">
         
-        {/* === BRAND HEADER === */}
         <div className="login-header">
-          {/* REPLACED ICON BOX WITH RECTANGULAR LOGO */}
           <div className="login-logo-wrapper">
              <img 
                src="/logo.png" 
@@ -55,14 +51,14 @@ const LoginPage = () => {
              />
           </div>
           
-          <h1 className="login-title">Owner Portal</h1>
-          <p className="login-subtitle">Sign in to manage your barbershop</p>
+          <h1 className="login-title">פורטל ניהול</h1>
+          <p className="login-subtitle">התחבר כדי לנהל את המספרה</p>
         </div>
-        {/* === LOGIN FORM === */}
+
         <form className="login-form" onSubmit={handleLogin}>
           
           <div className="input-group">
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email">כתובת אימייל</label>
             <input 
               type="email" 
               id="email"
@@ -74,7 +70,7 @@ const LoginPage = () => {
           </div>
 
           <div className="input-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">סיסמה</label>
             <input 
               type="password" 
               id="password"
@@ -91,36 +87,35 @@ const LoginPage = () => {
               className="forgot-link"
               onClick={handleForgotPasswordClick}
             >
-              Forgot Password?
+              שכחתי סיסמה?
             </button>
           </div>
 
           <button type="submit" className="login-btn">
-            <span>SIGN IN</span>
+            <span>התחבר</span>
             <span className="btn-shimmer"></span>
           </button>
         </form>
       </div>
 
-      {/* Forgot Password Modal (Unchanged) */}
       {showForgotModal && (
         <div className="modal-overlay">
           <div className="modal-card">
             <div className="modal-icon">🔒</div>
-            <h3 className="modal-title">Security Check</h3>
-            <p className="modal-text">Enter admin passcode to reveal credentials.</p>
+            <h3 className="modal-title">בדיקת אבטחה</h3>
+            <p className="modal-text">הזן קוד מנהל לחשיפת הפרטים</p>
             <input 
               type="text" 
               className="luxury-input modal-input"
-              placeholder="Enter Passcode"
+              placeholder="קוד"
               value={passcode}
               onChange={(e) => setPasscode(e.target.value)}
               autoFocus
             />
             {error && <p className="modal-error">{error}</p>}
             <div className="modal-actions">
-              <button className="modal-btn cancel" onClick={() => setShowForgotModal(false)}>Cancel</button>
-              <button className="modal-btn confirm" onClick={verifyPasscodeAndReveal}>Reveal</button>
+              <button className="modal-btn cancel" onClick={() => setShowForgotModal(false)}>ביטול</button>
+              <button className="modal-btn confirm" onClick={verifyPasscodeAndReveal}>אישור</button>
             </div>
           </div>
         </div>

@@ -1,0 +1,274 @@
+/* ═══════════════════════════════════════════════════════════════
+   OWNER SIDEBAR — RTL & TOURKI THEME
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --os-width: 260px;
+  --os-width-collapsed: 100px;
+  --os-bg: #1F2937; /* Dark Charcoal */
+  --os-gold: #D4AF37;
+  --os-gold-light: #F0D078;
+  --os-text: #E5E7EB;
+  --os-text-dim: #9CA3AF;
+  --header-mobile-h: 64px;
+}
+
+/* === SIDEBAR CONTAINER (RTL) === */
+.os-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0; 
+  bottom: 0;
+  width: var(--os-width);
+  background: var(--os-bg);
+  color: var(--os-text);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.25);
+  border-left: 1px solid rgba(212, 175, 55, 0.1);
+  
+  /* STRICT OVERFLOW CONTROL */
+  overflow-x: hidden !important; 
+  overflow-y: hidden; /* Only .os-nav should scroll */
+  
+  direction: rtl; 
+}
+
+/* === COLLAPSED STATE === */
+.os-sidebar.collapsed {
+  width: var(--os-width-collapsed);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   1. HEADER SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.os-header {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+}
+
+.os-username {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--os-gold);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.os-avatar-circle {
+  width: 45px;
+  height: 45px;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid var(--os-gold);
+  border-radius: 50%;
+  color: var(--os-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   2. NAVIGATION
+   ═══════════════════════════════════════════════════════════════ */
+.os-nav {
+  flex: 1;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  /* SCROLL FIXES */
+  overflow-y: auto;
+  overflow-x: hidden; /* <--- THIS REMOVES THE BOTTOM SCROLLBAR */
+  
+  /* Optional: Make scrollbar invisible but functional */
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+}
+
+/* Ensure Webkit browsers (Chrome/Safari) also hide it */
+.os-nav::-webkit-scrollbar { 
+  display: none; 
+}
+
+.os-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  color: var(--os-text-dim);
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+.os-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.os-text {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+/* Hover State */
+.os-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #FFFFFF;
+}
+
+/* Active State */
+.os-item.active {
+  background: linear-gradient(135deg, var(--os-gold) 0%, var(--os-gold-light) 100%);
+  color: #1F2937; /* Dark text on gold */
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  font-weight: 700;
+}
+
+.os-item.active .os-icon {
+  color: #1F2937;
+}
+
+/* Collapsed Adjustments */
+.os-sidebar.collapsed .os-item {
+  justify-content: center;
+  padding: 0.9rem 0;
+}
+
+.os-sidebar.collapsed .os-text {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+/* Tooltip (Visible only when collapsed) */
+.os-tooltip {
+  position: absolute;
+  right: 120%; /* Show to the left of the sidebar in RTL */
+  top: 50%;
+  transform: translateY(-50%);
+  background: #FFFFFF;
+  color: #1F2937;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 1001;
+}
+
+.os-sidebar.collapsed .os-item:hover .os-tooltip {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   3. FOOTER SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.os-footer {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Collapse Button */
+.os-collapse-btn {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--os-text-dim);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.os-collapse-btn:hover {
+  border-color: var(--os-gold);
+  color: var(--os-gold);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+/* Logout Button */
+.os-logout-btn {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #EF4444; /* Red */
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+.os-logout-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.os-sidebar.collapsed .os-logout-text {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .os-sidebar {
+    transform: translateX(100%); /* Hidden to the right */
+    width: 260px !important; /* Fixed width on mobile */
+  }
+
+  .os-sidebar.open {
+    transform: translateX(0); /* Slide in */
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .os-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .os-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

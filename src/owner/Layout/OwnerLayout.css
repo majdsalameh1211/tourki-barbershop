@@ -1,44 +1,90 @@
 /* ═══════════════════════════════════════════════════════════════
-   OWNER LAYOUT - BASE SHELL
-   Strict LTR & Dark Theme
+   OWNER LAYOUT — RTL ORCHESTRATION
    ═══════════════════════════════════════════════════════════════ */
 
 .owner-layout {
-  /* Force LTR for admin interface */
-  direction: ltr !important;
-  
-  /* Full Viewport */
-  width: 100vw;
-  height: 100vh;
-  
-  /* Tourki Dark Theme Background */
-  background: #1F2937;
-  background: radial-gradient(circle at 50% 0%, #374151 0%, #1F2937 80%);
-  
-  /* Flex layout for future Sidebar + Content */
-  display: flex;
-  overflow: hidden;
+  min-height: 100vh;
+  background: #F3F4F6; /* Light grey bg for content */
+  position: relative;
+  overflow-x: hidden;
 }
 
-.owner-content-wrapper {
-  flex: 1;
+/* === MAIN CONTENT WRAPPER === */
+.owner-main {
+  /* RTL Logic: Sidebar is on the RIGHT, so margin-right is needed */
+  margin-right: 260px; /* var(--os-width) */
+  margin-left: 0;
+  
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
+  transition: margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.owner-main-area {
+/* Collapsed State */
+.owner-main.collapsed {
+  margin-right: 100px; /* var(--os-width-collapsed) */
+}
+
+/* === CONTENT SCROLL AREA === */
+.owner-content-scroll {
   flex: 1;
   padding: 2rem;
   overflow-y: auto;
-  
-  /* Scrollbar Styling for Owner Side */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(212, 175, 55, 0.3) transparent;
 }
 
-.owner-main-area::-webkit-scrollbar { width: 6px; }
-.owner-main-area::-webkit-scrollbar-track { background: transparent; }
-.owner-main-area::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 10px; }
+/* === MOBILE HEADER === */
+.owner-mobile-header {
+  display: none; /* Hidden on desktop */
+  height: 64px;
+  background: #1F2937;
+  color: #D4AF37;
+  align-items: center;
+  padding: 0 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.owner-hamburger {
+  background: transparent;
+  border: none;
+  color: inherit;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.owner-hamburger svg {
+  width: 24px;
+  height: 24px;
+}
+
+
+
+.owner-mobile-brand {
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  margin-right: auto; 
+  padding-left: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .owner-main,
+  .owner-main.collapsed {
+    margin-right: 0; /* Reset margin on mobile */
+  }
+
+  .owner-mobile-header {
+    display: flex; /* Show header */
+  }
+
+  .owner-content-scroll {
+    padding: 1rem;
+  }
+}
