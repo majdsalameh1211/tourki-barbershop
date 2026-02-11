@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AddAppointmentForm from './AddAppointmentForm'; 
+import AddAppointmentForm from '../FormsComponents/AddAppointmentForm'; 
 import './DailyAppointmentsTable.css';
 
 const DailyAppointmentsTable = ({ date, appointments, onSelect, onBack }) => {

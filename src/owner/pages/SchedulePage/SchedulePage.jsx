@@ -2,7 +2,7 @@ import { useState } from 'react';
 import MonthlyCalendar from './MonthlyCalendar/MonthlyCalendar';
 import DailyAppointmentsTable from './DailyAppointmentsTable/DailyAppointmentsTable';
 import AppointmentCard from './AppointmentCard/AppointmentCard';
-import UpdateForm from './UpdateForm/UpdateForm';
+import UpdateForm from './FormsComponents/UpdateForm';
 import { 
   getCalendarData, 
   getAppointmentsByDateObject 

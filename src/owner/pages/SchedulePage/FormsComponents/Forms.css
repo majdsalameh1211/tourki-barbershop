@@ -1,0 +1,271 @@
+/* ═══════════════════════════════════════════════════════════════
+   MASTER FORM STYLES
+   Theme: Premium Gold & Clean White
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Colors */
+  --gold-primary: #D4AF37;
+--gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F1D376 100%);
+  --gold-hover: linear-gradient(135deg, #B8860B 0%, #D4AF37 100%);
+  --gold-shadow: 0 4px 15px rgba(184, 134, 11, 0.4);
+  
+  --bg-input: #F9FAFB;
+  --border-color: #E5E7EB;
+  --text-dark: #111827;
+  --text-medium: #374151;
+  --text-light: #6B7280;
+  --danger: #EF4444;
+
+  /* Spacing & Radius */
+  --radius-card: 24px;
+  --radius-input: 12px;
+  --radius-btn: 14px; /* Slightly softer than a full pill, more modern */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   1. LAYOUT & CARDS
+   ═══════════════════════════════════════════════════════════════ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out forwards;
+  padding: 1rem;
+}
+
+.form-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-card);
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 700px; /* Optimal reading width */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Page Mode (Update Form) Specifics */
+.form-card.page-mode {
+  max-width: 600px;
+  margin: 2rem auto;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { 
+  from { opacity: 0; transform: translateY(20px) scale(0.96); } 
+  to { opacity: 1; transform: translateY(0) scale(1); } 
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   2. HEADER & TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════════ */
+
+.form-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+}
+
+/* Center title for Update Form specifically */
+.page-mode .form-header {
+  justify-content: center;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.form-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.btn-close-icon {
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+}
+.btn-close-icon:hover { background: #F3F4F6; color: var(--danger); }
+
+/* ═══════════════════════════════════════════════════════════════
+   3. BODY & INPUTS
+   ═══════════════════════════════════════════════════════════════ */
+
+.form-body {
+  padding: 2rem;
+  overflow-y: auto;
+  max-height: 70vh; /* Scrollable if content is too long */
+}
+
+.form-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Desktop: 2 columns */
+@media (min-width: 640px) {
+  .form-grid { grid-template-columns: 1fr 1fr; }
+  .span-full { grid-column: 1 / -1; }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-medium);
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-input);
+  border: 1px solid var(--border-color);
+  background: var(--bg-input);
+  font-size: 1rem;
+  color: var(--text-dark);
+  transition: all 0.2s ease;
+  outline: none;
+
+ 
+  appearance: none; 
+  -webkit-appearance: none; /* For Safari/Chrome */
+  -moz-appearance: none;    /* For Firefox */
+}
+
+.input-field:focus {
+  background: #FFF;
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15); /* Gold Ring */
+}
+
+/* Select Styling */
+.select-wrapper { position: relative; }
+.select-wrapper::after {
+  content: ''; 
+  /* Simple CSS Arrow */
+  border: solid var(--text-light);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  position: absolute; left: 16px; top: 38%;
+  transform: rotate(45deg) translateY(-50%);
+  pointer-events: none;
+}
+
+/* Toggle Checkbox (WhatsApp) */
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--bg-input);
+  border-radius: var(--radius-input);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.toggle-wrapper:hover { border-color: var(--gold-primary); background: #fff; }
+.toggle-input { width: 18px; height: 18px; accent-color: #10B981; }
+.toggle-text { font-weight: 500; color: var(--text-dark); }
+
+/* ═══════════════════════════════════════════════════════════════
+   4. BUTTONS (REDESIGNED)
+   ═══════════════════════════════════════════════════════════════ */
+
+.form-footer {
+  padding: 1.5rem 2rem;
+  background: #FFF;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* Remove border for Page Mode footer if preferred */
+.page-mode .form-footer { border-top: none; padding-top: 0; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 24px;
+  height: 48px;
+  border-radius: var(--radius-btn);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+/* Secondary Button (Cancel) */
+.btn-secondary {
+  background: #F3F4F6;
+  color: var(--text-medium);
+}
+.btn-secondary:hover {
+  background: #E5E7EB;
+  color: var(--text-dark);
+}
+
+.btn-primary {
+  /* Forces the background to be solid gold */
+  background: #D4AF37 !important; 
+  
+  /* Adds a subtle gradient for depth so it doesn't look "flat" */
+  background-image: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%) !important;
+  
+  /* Text color MUST be dark for contrast */
+  color: #1F2937 !important;
+  
+  /* Remove the white border/glow that makes it look washed out */
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4) !important;
+  
+  font-weight: 800;
+  height: 48px;
+  padding: 0 32px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #B5952F !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(212, 175, 55, 0.6) !important;
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+/* Mobile Adjustments */
+@media (max-width: 640px) {
+  .form-header, .form-body, .form-footer { padding: 1.25rem; }
+  .form-footer { flex-direction: column-reverse; }
+  .btn { width: 100%; max-width: none; }
+}
