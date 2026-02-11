@@ -216,3 +216,18 @@
 /* Empty State */
 .empty-state { text-align: center; padding: 4rem 1rem; color: var(--text-muted); }
 .empty-icon { width: 64px; height: 64px; color: #E5E7EB; margin-bottom: 1rem; }
+
+/* Disable hover during deletion */
+.approvals-table-card.is-updating .approval-row:hover {
+  background: #ffffff !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Deleting animation */
+.approval-row.deleting {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.3s ease-out;
+  pointer-events: none;
+}

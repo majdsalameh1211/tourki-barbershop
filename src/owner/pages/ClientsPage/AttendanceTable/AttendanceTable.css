@@ -134,3 +134,18 @@
   .att-actions { width: 100%; justify-content: space-between; padding-top: 10px; border-top: 1px solid #F3F4F6; }
   .btn-action { flex: 1; border-radius: 8px; }
 }
+
+/* Disable hover during deletion */
+.attendance-card.is-updating .att-row:hover {
+  background: #FFFFFF !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Deleting animation */
+.att-row.deleting {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.3s ease-out;
+  pointer-events: none;
+}

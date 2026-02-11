@@ -129,3 +129,18 @@
   .ns-phone { display: flex; justify-content: space-between; width: 100%; }
   .ns-phone::after { content: 'טלפון'; color: #9CA3AF; font-size: 0.8rem; font-family: sans-serif; }
 }
+
+/* Disable hover during update */
+.noshow-card.is-updating .ns-row:hover {
+  background: #FFFFFF !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Updating animation */
+.ns-row.updating {
+  opacity: 0.5;
+  transform: scale(0.98);
+  transition: all 0.3s ease-out;
+  pointer-events: none;
+}

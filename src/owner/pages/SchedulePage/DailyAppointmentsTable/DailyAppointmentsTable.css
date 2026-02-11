@@ -137,49 +137,20 @@
 
 .table-header-row.selection-mode { grid-template-columns: 40px 80px 1.5fr 1fr 60px 100px; }
 
-.table-body.is-updating {
-  pointer-events: none; /* */
-}
-
 .appt-row {
   display: grid;
   grid-template-columns: 0px 80px 1.5fr 1fr 60px 100px;
   align-items: center;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid #F3F4F6;
+  transition: all 0.2s ease;
   background: #FFFFFF;
-  position: relative; /* */
-  transition: 
-    background 0.3s ease, 
-    transform 0.3s ease, 
-    opacity 0.3s ease,
-    max-height 0.3s ease,
-    padding 0.3s ease,
-    margin 0.3s ease,
-    grid-template-columns 0.3s ease; /* */
-  overflow: hidden; /* */
-  max-height: 200px; /* */
 }
 
 .appt-row.selection-mode { grid-template-columns: 40px 80px 1.5fr 1fr 60px 100px; }
 .appt-row:last-child { border-bottom: none; }
-
-.appt-row:not(.deleting):hover {
-  background: #FEFCE8; 
-  z-index: 5;
-}
-
-/* Deleting Animation State */
-.appt-row.deleting {
-  opacity: 0; /* */
-  transform: translateX(-20px); /* */
-  max-height: 0; /* */
-  padding-top: 0; /* */
-  padding-bottom: 0; /* */
-  margin: 0; /* */
-  border: none; /* */
-  pointer-events: none; /* */
-}
+.appt-row:hover { background: #FEFCE8; z-index: 5; }
+.appt-row.selected { background: #F0FDF4; }
 
 /* Columns */
 .col-check { overflow: hidden; display: flex; align-items: center; }
@@ -260,3 +231,19 @@
   .btn-view { margin-left: 8px; }
 }
 
+
+/* Disable hover during deletion */
+.table-body.is-updating .appt-row:hover {
+  background: #FFFFFF !important;
+  transform: none !important;
+  box-shadow: none !important;
+  z-index: 1 !important;
+}
+
+/* Deleting animation */
+.appt-row.deleting {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.3s ease-out;
+  pointer-events: none;
+}

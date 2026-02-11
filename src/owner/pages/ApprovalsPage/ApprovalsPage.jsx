@@ -32,13 +32,32 @@ const ApprovalsPage = () => {
     }
   ]);
 
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
+
+  // Update handleApprove (around line 30)
   const handleApprove = (id) => {
-    setAppointments(prev => prev.filter(appt => appt.id !== id));
+    setIsUpdating(true);
+    setDeletingId(id);
+
+    setTimeout(() => {
+      setAppointments(prev => prev.filter(appt => appt.id !== id));
+      setDeletingId(null);
+      setTimeout(() => setIsUpdating(false), 200);
+    }, 300);
   };
 
+  // Update handleReject (around line 34)
   const handleReject = (id) => {
     if (window.confirm('האם אתה בטוח שברצונך לדחות בקשה זו?')) {
-      setAppointments(prev => prev.filter(appt => appt.id !== id));
+      setIsUpdating(true);
+      setDeletingId(id);
+
+      setTimeout(() => {
+        setAppointments(prev => prev.filter(appt => appt.id !== id));
+        setDeletingId(null);
+        setTimeout(() => setIsUpdating(false), 200);
+      }, 300);
     }
   };
 
@@ -48,7 +67,7 @@ const ApprovalsPage = () => {
 
   return (
     <div className="approvals-container">
-      
+
       {/* Header */}
       <div className="page-header">
         <h1 className="page-title">אישור הזמנות</h1>
@@ -57,14 +76,14 @@ const ApprovalsPage = () => {
 
       {/* Content */}
       <div className="approvals-table-card">
-        
+
         {appointments.length > 0 && (
           <div className="table-header">
             <span>פרטי לקוח</span>
             <span>טלפון</span>
             <span>מועד התור</span>
             <span>נוצר בתאריך</span>
-            <span style={{textAlign: 'left'}}>פעולות</span>
+            <span style={{ textAlign: 'left' }}>פעולות</span>
           </div>
         )}
 
@@ -79,8 +98,9 @@ const ApprovalsPage = () => {
         ) : (
           <div className="approvals-list">
             {appointments.map((appt) => (
-              <div key={appt.id} className="approval-row">
-                
+              <div key={appt.id}
+               className={`approval-row ${deletingId === appt.id ? 'deleting' : ''}`}>
+
                 {/* Client */}
                 <div className="col-client">
                   <div className="client-avatar">{getInitials(appt.name)}</div>
@@ -106,16 +126,16 @@ const ApprovalsPage = () => {
 
                 {/* Actions (Responsive CSS handles the layout) */}
                 <div className="col-actions">
-                  <button 
-                    className="action-btn btn-reject" 
+                  <button
+                    className="action-btn btn-reject"
                     onClick={() => handleReject(appt.id)}
                     title="דחה"
                   >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                   </button>
-                  
-                  <button 
-                    className="action-btn btn-approve" 
+
+                  <button
+                    className="action-btn btn-approve"
                     onClick={() => handleApprove(appt.id)}
                     title="אשר"
                   >
