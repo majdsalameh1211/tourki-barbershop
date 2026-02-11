@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './MonthlyCalendar.css';
 
 const MonthlyCalendar = ({ onDaySelect, appointmentsData = {} }) => {
+  const { t } = useTranslation();
   const [currentDate, setCurrentDate] = useState(new Date(2026, 1, 1));
 
   // Calendar calculation logic
@@ -20,6 +22,14 @@ const MonthlyCalendar = ({ onDaySelect, appointmentsData = {} }) => {
       currentDate.getMonth() === today.getMonth() &&
       currentDate.getFullYear() === today.getFullYear()
     );
+  };
+
+  const isPastDate = (day) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const cellDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    cellDate.setHours(0, 0, 0, 0);
+    return cellDate < today;
   };
 
   const daysInMonth = getDaysInMonth(currentDate);
@@ -65,59 +75,54 @@ const MonthlyCalendar = ({ onDaySelect, appointmentsData = {} }) => {
       const isPending = dayInfo.hasPending;
       const count = dayInfo.count || 0;
       const today = isToday(day);
+      const past = isPastDate(day);
       
       const cellClasses = [
         'calendar-cell',
         isPending && 'calendar-cell--pending',
         today && 'calendar-cell--today',
-        count > 0 && 'calendar-cell--has-appointments'
+        count > 0 && !isPending && 'calendar-cell--has-appointments',
+        past && 'calendar-cell--past'
       ].filter(Boolean).join(' ');
+
+      const isClickable = !past;
 
       cells.push(
         <div 
           key={day} 
           className={cellClasses}
-          onClick={() => onDaySelect(new Date(currentDate.getFullYear(), currentDate.getMonth(), day), dayInfo)}
-          role="button"
-          tabIndex={0}
+          onClick={() => isClickable && onDaySelect(new Date(currentDate.getFullYear(), currentDate.getMonth(), day), dayInfo)}
+          role={isClickable ? "button" : undefined}
+          tabIndex={isClickable ? 0 : undefined}
           aria-label={`${day} ${monthNames[currentDate.getMonth()]}, ${count} תורים${isPending ? ', יש תורים ממתינים לאישור' : ''}`}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
+            if ((e.key === 'Enter' || e.key === ' ') && isClickable) {
               e.preventDefault();
               onDaySelect(new Date(currentDate.getFullYear(), currentDate.getMonth(), day), dayInfo);
             }
           }}
         >
-          {/* Date number with today indicator */}
-          <div className="cell-header">
+          {/* Top Section: Date Number */}
+          <div className="cell-date-section">
             <span className="cell-date">{day}</span>
             {today && <span className="cell-today-dot" aria-label="היום"></span>}
           </div>
           
-          {/* Pending warning icon */}
-          {isPending && (
-            <div className="cell-pending-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor">
+          {/* Bottom Section: Appointments Info */}
+          <div className="cell-info-section">
+            {isPending && (
+              <svg className="cell-warning-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2L2 20h20L12 2zm0 5.5l6.5 11h-13L12 7.5zM11 10v4h2v-4h-2zm0 5v2h2v-2h-2z"/>
               </svg>
-            </div>
-          )}
+            )}
 
-          {/* Appointment badge */}
-          {count > 0 && (
-            <div className="cell-badge-wrapper">
-              {/* Desktop: Pill badge */}
-              <div className="cell-badge cell-badge--pill">
+            {count > 0 && (
+              <div className="cell-appointment-badge">
                 <span className="badge-count">{count}</span>
                 <span className="badge-text">{count === 1 ? 'תור' : 'תורים'}</span>
               </div>
-              
-              {/* Mobile: Circle badge */}
-              <div className="cell-badge cell-badge--circle">
-                {count}
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       );
     }
@@ -183,7 +188,7 @@ const MonthlyCalendar = ({ onDaySelect, appointmentsData = {} }) => {
         {renderCalendarCells()}
       </div>
 
-      {/* Legend for mobile users */}
+      {/* Legend */}
       <div className="calendar-legend">
         <div className="legend-item">
           <div className="legend-icon legend-icon--pending"></div>

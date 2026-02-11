@@ -6,7 +6,7 @@ import Step2Time from './steps/Step2Time/Step2Time';
 import Step3ClientInfo from './steps/Step3ClientInfo/Step3ClientInfo';
 import Step4Confirm from './steps/Step4Confirm/Step4Confirm';
 import NavigationButtons from './components/NavigationButtons/NavigationButtons';
-import SuccessModal from './components/SuccessModal';
+import SuccessModal from './components/SuccessModal/SuccessModal';
 import './BookingPage.css';
 
 const BookingPage = () => {

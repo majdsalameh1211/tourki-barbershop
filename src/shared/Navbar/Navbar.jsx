@@ -37,12 +37,15 @@ const Navbar = () => {
 
         {/* === BRAND === */}
         <a href="/" className="navbar-brand">
-         
+
+          {/* --- NEW WRAPPER DIV START --- */}
+          <div className="brand-logo-container">
             <img src="/logo.png" alt="Tourki" className="navbar-logo-img" />
-        
+          </div>
+          {/* --- NEW WRAPPER DIV END --- */}
+
           <div className="brand-text">
             <span className="brand-main">TOURKI</span>
-            {/* Translated Tagline */}
             <span className="brand-tagline">{t('navbar.tagline')}</span>
           </div>
         </a>
