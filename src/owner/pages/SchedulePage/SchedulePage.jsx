@@ -5,8 +5,7 @@ import AppointmentCard from './AppointmentCard/AppointmentCard';
 import UpdateForm from './UpdateForm/UpdateForm';
 import { 
   getCalendarData, 
-  getAppointmentsByDateObject,
-  formatDateKey 
+  getAppointmentsByDateObject 
 } from '../../../utils/mockDataHelpers';
 import './SchedulePage.css';
 
@@ -19,7 +18,7 @@ const SchedulePage = () => {
   const calendarData = getCalendarData();
 
   // --- HANDLERS ---
-  const handleDaySelect = (date, dayInfo) => {
+  const handleDaySelect = (date) => {
     setSelectedDate(date);
     setCurrentView('table');
   };
@@ -30,16 +29,14 @@ const SchedulePage = () => {
   };
 
   const handleDelete = (id) => {
-    // In real app, this would call API
     console.log('Delete appointment:', id);
-    setCurrentView('table'); // Go back after delete
+    setCurrentView('table'); 
   };
 
   const handleSave = (updatedAppt) => {
-    // In real app, this would call API
     console.log('Update appointment:', updatedAppt);
     setSelectedAppointment(updatedAppt);
-    setCurrentView('card'); // Go back to viewer
+    setCurrentView('card'); 
   };
 
   const handleBack = () => {
@@ -56,29 +53,6 @@ const SchedulePage = () => {
   return (
     <div className="schedule-container">
       
-      {/* GLOBAL BACK BUTTON */}
-      {currentView !== 'calendar' && (
-        <div className="back-header">
-          <button className="back-btn" onClick={handleBack}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M9 18l6-6-6-6"/> {/* Right arrow for RTL back */}
-            </svg>
-            חזור
-          </button>
-          
-          {currentView === 'table' && (
-            <h3>תורים לתאריך {selectedDate?.toLocaleDateString('he-IL', { 
-              weekday: 'long', 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
-            })}</h3>
-          )}
-          {currentView === 'card' && <h3>פרטי תור</h3>}
-          {currentView === 'edit' && <h3>עריכת תור</h3>}
-        </div>
-      )}
-
       {/* VIEW SWITCHER */}
       {currentView === 'calendar' && (
         <MonthlyCalendar 
@@ -92,6 +66,7 @@ const SchedulePage = () => {
           date={selectedDate} 
           appointments={dailyAppointments}
           onSelect={handleAppointmentSelect}
+          onBack={handleBack}
         />
       )}
 
@@ -100,6 +75,7 @@ const SchedulePage = () => {
           appointment={selectedAppointment} 
           onEdit={() => setCurrentView('edit')}
           onDelete={handleDelete}
+          onBack={handleBack} // Pass back handler if Card needs it internally
         />
       )}
 
