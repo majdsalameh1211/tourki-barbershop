@@ -28,17 +28,19 @@ const ClientForm = ({
   const { t } = useTranslation();
 
 const formatPhoneNumber = (value) => {
-    // Allow typing + for international numbers
-    if (value.startsWith('+')) return value;
+  // 1. If it starts with +, treat it as an international number and don't apply Israeli dashes
+  if (value.startsWith('+')) {
+    // Only allow + followed by digits
+    return '+' + value.slice(1).replace(/\D/g, '');
+  }
 
-    const cleaned = value.replace(/\D/g, '');
-    
-    // If it looks like an international number (starts with 972), keep it simple
-    if (cleaned.startsWith('972')) {
-      return '+' + cleaned;
-    }
+  // 2. Clean all non-numeric characters for standard formatting
+  const cleaned = value.replace(/\D/g, '');
 
-    // Standard Israeli formatting (05X-XXX-XXXX)
+  // 3. Special Case: If the user types '972' without a '+', keep it as digits 
+  // until they finish or let them continue. We only apply the 05X-XXX-XXXX 
+  // pattern if the number starts with '0'.
+  if (cleaned.startsWith('0')) {
     if (cleaned.length <= 3) {
       return cleaned;
     } else if (cleaned.length <= 6) {
@@ -46,7 +48,12 @@ const formatPhoneNumber = (value) => {
     } else {
       return `${cleaned.slice(0, 3)}-${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
     }
-  };
+  }
+
+  // 4. Fallback: For any other numeric input (like starting with 972 directly), 
+  // just return the cleaned digits.
+  return cleaned;
+};
 
   const handlePhoneChange = (e) => {
     const formatted = formatPhoneNumber(e.target.value);
@@ -101,7 +108,7 @@ const formatPhoneNumber = (value) => {
             onChange={handlePhoneChange}
             placeholder="054-123-4567"
             autoComplete="tel"
-            maxLength={12}
+            maxLength={15}
             required
           />
           <p className="cf-hint">
