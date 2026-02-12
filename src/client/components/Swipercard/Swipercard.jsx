@@ -1,4 +1,4 @@
-import './SwiperCard.css';
+import './Swipercard.css';
 
 const SwiperCard = ({ item }) => {
   // Detect item type based on properties
