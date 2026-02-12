@@ -60,7 +60,7 @@ const AddAppointmentForm = ({ isOpen, onClose, onSave }) => {
             
             <div className="input-group">
               <label className="input-label">שם הלקוח</label>
-              <input type="text" name="name" className="input-field" placeholder="ישראל ישראלי" value={formData.name} onChange={handleChange} autoFocus required />
+              <input type="text" name="name" className="input-field" placeholder="test test" value={formData.name} onChange={handleChange} autoFocus required />
             </div>
 
             <div className="input-group">

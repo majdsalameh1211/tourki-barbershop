@@ -3,7 +3,7 @@ import './SettingsPage.css';
 
 const SettingsPage = () => {
   const [formData, setFormData] = useState({
-    name: 'ישראל ישראלי',
+    name: 'tourki test',
     email: 'owner@tourki.com',
     phone: '050-1234567',
     currentPassword: '',
