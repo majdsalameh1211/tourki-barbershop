@@ -1,7 +1,7 @@
 // client/components/BusinessHub/BusinessHub.jsx
-import ContactCard from './ContactCard';
-import WazeCard from './WazeCard';
-import WorkingHoursCard from './WorkingHoursCard';
+import ContactCard from '../ContactCard/ContactCard';
+import WazeCard from '../WazeCard/WazeCard';
+import WorkingHoursCard from '../WorkingHoursCard/WorkingHoursCard';
 import './BusinessHub.css';
 
 const BusinessHub = ({ businessInfo, hours }) => {

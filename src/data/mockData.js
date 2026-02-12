@@ -2,7 +2,7 @@
 export const mockData = {
   businessInfo: {
     name: "Tourki",
-    phone: "+972-50-123-4567",
+    phone: "050-123-4567",
     address: "Reneh Main Street, near Stars Pizzeria, Nazareth",
     wazeCoordinates: { lat: 32.7048, lng: 35.2978 }
   },

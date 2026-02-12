@@ -8,16 +8,17 @@
   position: relative;
   overflow: hidden;
   border-top: 1px solid rgba(212, 175, 55, 0.15);
-  
+
   /* Reduced padding for compact look */
-  padding-top: 2.5rem; 
+  padding-top: 2.5rem;
 }
 
 /* Adjusted Glow - Subtle but present */
 .footer::before {
   content: '';
   position: absolute;
-  top: -80px; /* Pulled up */
+  top: -80px;
+  /* Pulled up */
   left: 50%;
   transform: translateX(-50%);
   width: 50%;
@@ -32,7 +33,8 @@
   padding: 0 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem; /* Much smaller gap between top and bottom decks */
+  gap: 2.5rem;
+  /* Much smaller gap between top and bottom decks */
 }
 
 /* ============================================
@@ -62,7 +64,8 @@
 }
 
 .footer-icon-box {
-  width: 38px; /* Smaller icon box */
+  width: 38px;
+  /* Smaller icon box */
   height: 38px;
   display: flex;
   align-items: center;
@@ -80,7 +83,8 @@
 }
 
 .footer-brand-text h2 {
-  font-size: 1.5rem; /* Smaller Title */
+  font-size: 1.5rem;
+  /* Smaller Title */
   font-weight: 800;
   color: #FFFFFF;
   line-height: 1;
@@ -102,7 +106,8 @@
   align-items: center;
   gap: 0.5rem;
   color: #9CA3AF;
-  font-size: 0.9rem; /* Smaller text */
+  font-size: 0.9rem;
+  /* Smaller text */
   background: rgba(255, 255, 255, 0.03);
   padding: 0.5rem 1rem;
   border-radius: 50px;
@@ -132,17 +137,18 @@
 
 /* Compact Social Tiles */
 .social-tile {
-  width: 44px; /* Much smaller tiles (was 60px) */
+  width: 44px;
+  /* Much smaller tiles (was 60px) */
   height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   color: #FFFFFF;
-  
+
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -150,7 +156,11 @@
 
 .social-tile::after {
   content: '';
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -162,16 +172,22 @@
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
-.social-tile:hover::after { opacity: 1; }
+.social-tile:hover::after {
+  opacity: 1;
+}
 
 .social-tile svg {
-  width: 20px; /* Smaller Icons */
+  width: 20px;
+  /* Smaller Icons */
   height: 20px;
   z-index: 2;
   transition: transform 0.3s ease;
 }
 
-.social-tile:hover svg { transform: scale(1.15); color: #D4AF37; }
+.social-tile:hover svg {
+  transform: scale(1.15);
+  color: #D4AF37;
+}
 
 /* ============================================
    BOTTOM SECTION: COPYRIGHT
@@ -179,7 +195,8 @@
 
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 1.5rem 0; /* Reduced padding */
+  padding: 1.5rem 0;
+  /* Reduced padding */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -202,15 +219,22 @@
   transition: color 0.2s;
 }
 
-.legal-link:hover { color: #D4AF37; }
+.legal-link:hover {
+  color: #D4AF37;
+}
 
 /* ============================================
    RESPONSIVE (MOBILE)
    ============================================ */
 @media (max-width: 768px) {
-  .footer { padding-top: 2rem; }
-  .footer-container { gap: 2rem; }
-  
+  .footer {
+    padding-top: 2rem;
+  }
+
+  .footer-container {
+    gap: 2rem;
+  }
+
   .footer-content {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -221,8 +245,23 @@
   .footer-social-section {
     align-items: center;
   }
+
   
-  .footer-logo { flex-direction: column; gap: 0.75rem; }
+  .footer-logo {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+
+  .footer-brand-text {
+    text-align: left;
+  }
+
+  [dir="rtl"] .footer-brand-text {
+    text-align: right;
+  }
 
   .footer-bottom {
     flex-direction: column;
@@ -230,14 +269,23 @@
     padding-bottom: 2rem;
     text-align: center;
   }
-  
-  .social-icons-grid { gap: 1rem; }
-  .social-tile { width: 48px; height: 48px; } /* Slightly larger touch target */
+
+  .social-icons-grid {
+    gap: 1rem;
+  }
+
+  .social-tile {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Slightly larger touch target */
 }
 
 /* Add to Footer.css */
 .footer-logo-img {
-  height: 50px; /* Slightly larger than navbar */
+  height: 50px;
+  /* Slightly larger than navbar */
   width: auto;
   object-fit: contain;
   margin-right: 0.75rem;
