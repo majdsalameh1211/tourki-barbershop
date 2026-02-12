@@ -6,12 +6,13 @@ import BookingPage from './client/booking/BookingPage';
 import LoginPage from './owner/Login/LoginPage';
 import OwnerLayout from './owner/Layout/OwnerLayout';
 
-// IMPORT NEW PAGES
 import SchedulePage from './owner/pages/SchedulePage/SchedulePage';
 import ApprovalsPage from './owner/pages/ApprovalsPage/ApprovalsPage';
 import ClientsPage from './owner/pages/ClientsPage/ClientsPage';
 import InfoPage from './owner/pages/InfoPage/InfoPage';
 import SettingsPage from './owner/pages/SettingsPage/SettingsPage';
+
+//import ScrollToTop from './client/components/ScrollToTop';
 
 import './App.css';
 
@@ -27,8 +28,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Routes>
-          
+        <Routes>  
           {/* === CLIENT SIDE === */}
           <Route element={<ClientLayout />}>
             <Route path="/" element={<LandingPage />} />
