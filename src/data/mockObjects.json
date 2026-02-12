@@ -1,0 +1,126 @@
+{
+  "services": [
+    {
+      "id": "service-1",
+      "name": {
+        "en": "Classic Haircut",
+        "ar": "قصة شعر كلاسيكية",
+        "he": "תספורת קלאסית"
+      },
+      "image": "https://images.unsplash.com/photo-1599351431202-6e0c06e76f87?w=400&h=300&fit=crop",
+      "duration": 45
+    },
+    {
+      "id": "service-2",
+      "name": {
+        "en": "Beard Trim & Shape",
+        "ar": "تحديد وتشذيب اللحية",
+        "he": "סידור ועיצוב זקן"
+      },
+      "image": "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&h=300&fit=crop",
+      "duration": 30
+    },
+    {
+      "id": "service-3",
+      "name": {
+        "en": "Royal Shave",
+        "ar": "حلاقة ملكية",
+        "he": "גילוח מלכותי"
+      },
+      "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=300&fit=crop",
+      "duration": 60
+    }
+  ],
+  "products": [
+    {
+      "id": "product-1",
+      "name": {
+        "en": "Strong Hold Pomade",
+        "ar": "مرهم تثبيت قوي",
+        "he": "פומייד לאחיזה חזקה"
+      },
+      "image": "https://images.unsplash.com/photo-1595324320167-53a2d506d4e5?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "product-2",
+      "name": {
+        "en": "Premium Beard Oil",
+        "ar": "زيت لحية فاخر",
+        "he": "שמן זקן פרימיום"
+      },
+      "image": "https://images.unsplash.com/photo-1626285861696-9f0bf5a49c6d?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "product-3",
+      "name": {
+        "en": "Matte Clay",
+        "ar": "طين مطفي",
+        "he": "חימר מט"
+      },
+      "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "product-4",
+      "name": {
+        "en": "Aftershave Balm",
+        "ar": "بلسم بعد الحلاقة",
+        "he": "באלם לאחר גילוח"
+      },
+      "image": "https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "product-5",
+      "name": {
+        "en": "Sea Salt Spray",
+        "ar": "بخاخ ملح البحر",
+        "he": "ספריי מלח ים"
+      },
+      "image": "https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "product-6",
+      "name": {
+        "en": "Styling Gel",
+        "ar": "جل تصفيف",
+        "he": "ג'ל לשיער"
+      },
+      "image": "https://images.unsplash.com/photo-1598452963314-b09f397a5c48?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "product-7",
+      "name": {
+        "en": "Shaving Cream",
+        "ar": "كريم حلاقة",
+        "he": "קרם גילוח"
+      },
+      "image": "https://images.unsplash.com/photo-1559599238-308793637427?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "product-8",
+      "name": {
+        "en": "Beard Balm",
+        "ar": "بلسم اللحية",
+        "he": "באלם לזקן"
+      },
+      "image": "https://images.unsplash.com/photo-1621607512214-68297f319087?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "product-9",
+      "name": {
+        "en": "Hair Tonic",
+        "ar": "منشط للشعر",
+        "he": "מי טוניק לשיער"
+      },
+      "image": "https://images.unsplash.com/photo-1571781926291-280553d36603?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "product-10",
+      "name": {
+        "en": "Mustache Wax",
+        "ar": "شمع الشارب",
+        "he": "ווקס לשפם"
+      },
+      "image": "https://images.unsplash.com/photo-1595324320167-53a2d506d4e5?w=400&h=400&fit=crop"
+    }
+  ]
+}

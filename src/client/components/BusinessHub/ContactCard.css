@@ -1,0 +1,117 @@
+/* client/components/BusinessHub/ContactCard.css */
+
+.contact-card {
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-card:hover {
+  border-color: #D4AF37; /* Gold */
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+}
+
+/* HEADER */
+.cc-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cc-icon-box {
+  width: 42px; 
+  height: 42px;
+  background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+  border-radius: 12px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
+}
+
+.cc-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1F2937;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* BODY */
+.cc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+  justify-content: center;
+}
+
+/* ACTION BUTTONS */
+.cc-action-btn {
+  width: 100%;
+  padding: 1rem;
+  /* CHANGED: 'start' aligns Left in EN and Right in AR/HE automatically */
+  text-align: start; 
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 14px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cc-action-btn:hover {
+  background: #FFFFFF;
+  border-color: #D4AF37;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+  transform: translateX(4px);
+}
+
+/* RTL Hover Flip */
+[dir="rtl"] .cc-action-btn:hover {
+  transform: translateX(-4px);
+}
+
+.cc-btn-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #6B7280; /* Gray-500 */
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.5px;
+}
+
+.cc-btn-value {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1F2937; /* Navy-900 */
+}
+
+/* ICON POSITIONING */
+.cc-btn-icon {
+  position: absolute;
+  /* CHANGED: Logical property puts icon at the 'End' automatically */
+  inset-inline-end: 1rem; 
+  top: 50%;
+  transform: translateY(-50%);
+  color: #D4AF37;
+  transition: transform 0.3s ease;
+}
+
+.cc-action-btn:hover .cc-btn-icon {
+  transform: translateY(-50%) scale(1.1);
+}

@@ -1,0 +1,84 @@
+/* client/components/BusinessHub/BusinessHub.css */
+
+/* --- THEME VARIABLES --- */
+:root {
+  --hub-navy: #1F2937;
+  --hub-gold: #D4AF37;
+  --hub-gold-light: #F0D078;
+  --hub-bg: #FFFFFF;
+  --hub-border: #E5E7EB;
+}
+
+/* ============================================
+   LAYOUT LOCKING (The Fix)
+   ============================================ */
+.business-hub-container {
+  width: 100%;
+  height: 100%;
+  
+  /* 1. LOCK LAYOUT: Always keep Left Column on Left, Right on Right */
+  direction: ltr !important; 
+  
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  min-height: 500px;
+}
+
+/* 2. RESTORE CONTENT DIRECTION:
+   If the HTML tag says RTL, force the inner columns to be RTL.
+   This ensures text aligns right and icons flip, 
+   even though the parent container is locked to LTR. */
+[dir="rtl"] .hub-left-col,
+[dir="rtl"] .hub-right-col {
+  direction: rtl;
+}
+
+/* ============================================
+   COLUMN STYLES
+   ============================================ */
+
+/* --- LEFT COLUMN (Split 70/30) --- */
+.hub-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.hub-row-large {
+  flex: 7; /* 70% */
+  min-height: 0;
+}
+
+.hub-row-small {
+  flex: 3; /* 30% */
+  min-height: 0;
+}
+
+/* --- RIGHT COLUMN (Full Height) --- */
+.hub-right-col {
+  height: 100%;
+}
+
+/* ============================================
+   RESPONSIVE MOBILE (< 900px)
+   ============================================ */
+@media (max-width: 900px) {
+  .business-hub-container {
+    /* On mobile, we usually WANT them to stack normally */
+    grid-template-columns: 1fr; 
+    height: auto;
+  }
+
+  .hub-left-col {
+    height: auto;
+    gap: 1.25rem;
+  }
+
+  .hub-row-large, 
+  .hub-row-small {
+    flex: none;
+    height: auto;
+  }
+}

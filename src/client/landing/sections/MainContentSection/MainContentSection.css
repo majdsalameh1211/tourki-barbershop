@@ -1,318 +1,97 @@
-/* ============================================
-   MAIN CONTENT - UNIFIED & COMPACT
-   ============================================ */
+/* client/landing/sections/MainContentSection/MainContentSection.css */
 
+/* ============================================
+   MAIN CONTENT SECTION
+   ============================================ */
 .main-content-section {
   width: 100%;
-  /* Fits exact screen height minus navbar (approx 80px) */
-  height: calc(100vh - 80px);
-  min-height: 600px;
-  background: linear-gradient(180deg, #F3F4F6 0%, #FFFFFF 100%);
+  min-height: 100vh;
+  background: linear-gradient(180deg, #FAFBFC 0%, #FFFFFF 100%);
+  padding: 4rem 2rem;
   position: relative;
-  overflow: hidden;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  scroll-margin-top: 100px;
 }
 
-.main-content-container {
+.content-wrapper {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1.5rem;
-  
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  height: 100%;
-  justify-content: center;
+  /* Balanced spacing between sections */
+  gap: 4rem; 
 }
 
 /* ============================================
-   BLOCK 1: THE BUSINESS HUB
+   ROW CONTAINERS
    ============================================ */
-
-.business-hub-card {
-  background: #FFFFFF;
-  border-radius: 24px;
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.04),
-    0 4px 6px rgba(0, 0, 0, 0.02);
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 1px 1fr;
-  align-items: stretch;
+.row {
+  width: 100%;
+  animation: fadeInUp 0.8s ease-out;
 }
 
-.hub-divider {
-  background: linear-gradient(180deg, transparent 0%, rgba(212, 175, 55, 0.3) 50%, transparent 100%);
-  width: 1px;
-  height: 100%;
+/* ROW 1: Business Hub (FLEXIBLE HEIGHT) */
+.row-1.hub-row {
+  /* CHANGED: Let it take exactly what it needs */
+  height: auto; 
+  /* Optional: Prevent it from being too squashed if empty */
+  min-height: 350px; 
 }
 
-.hub-section {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1.5rem;
+/* ROW 2 & 3: Swipers (FIXED SLEEK HEIGHT) */
+.row-2.services-row,
+.row-3.products-row {
+  height: 280px; /* The sleek strip look */
+  animation-delay: 0.2s;
 }
 
-.hub-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
+.row-3.products-row {
+  animation-delay: 0.4s;
 }
-
-.hub-icon {
-  color: #D4AF37;
-  width: 24px; height: 24px;
-}
-
-.hub-title {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: #1F2937;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* --- Contact Grid with Waze Logo Button --- */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.contact-details {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.contact-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #374151;
-  text-decoration: none;
-}
-
-.contact-row svg {
-  color: #D4AF37;
-  flex-shrink: 0;
-}
-
-/* THE WAZE LOGO BUTTON */
-.waze-logo-btn {
-  width: 56px;
-  height: 56px;
-  background: #33CCFF; /* Waze Blue */
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  box-shadow: 
-    0 4px 10px rgba(51, 204, 255, 0.3),
-    inset 0 2px 2px rgba(255, 255, 255, 0.4);
-  
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.waze-logo-btn:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(51, 204, 255, 0.4);
-}
-
-.waze-logo-btn svg {
-  width: 32px;
-  height: 32px;
-  color: white;
-  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
-}
-
-/* Tooltip for Waze */
-.waze-logo-btn::after {
-  content: 'Navigate';
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.6rem;
-  font-weight: 700;
-  color: white;
-  opacity: 0;
-  transition: all 0.2s;
-}
-
-/* --- Hours Text --- */
-.hours-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.75rem;
-}
-
-.hours-line {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem;
-  background: #F9FAFB;
-  border-radius: 12px;
-  border-left: 3px solid #D4AF37;
-}
-
-.days-span { font-weight: 700; color: #1F2937; font-size: 0.95rem; }
-.time-span { font-weight: 600; color: #4B5563; font-size: 0.95rem; font-family: monospace; }
-.closed-span { color: #EF4444; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; background: rgba(239, 68, 68, 0.1); padding: 0.25rem 0.5rem; border-radius: 8px; }
 
 /* ============================================
-   BLOCK 2: SERVICES SWIPER
+   ANIMATIONS & RESPONSIVE
    ============================================ */
-
-.services-section-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.services-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 0.5rem;
-}
-
-/* Navigation Arrows (Hidden by default, shown via JS logic) */
-.swiper-nav {
-  display: flex;
-  gap: 0.5rem;
-  opacity: 0; /* Hidden initially */
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.swiper-nav.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.nav-arrow {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  border: 1px solid rgba(0,0,0,0.1);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  color: #1F2937;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.nav-arrow:hover {
-  background: #D4AF37;
-  color: white;
-  border-color: #D4AF37;
-}
-
-.services-swiper {
-  display: flex;
-  gap: 1.5rem;
-  overflow-x: auto;
-  padding: 0.5rem 0.5rem 2rem 0.5rem;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none; 
-  -ms-overflow-style: none;
-
-  /* CENTERING MAGIC: */
-  /* 1. Shrink container to fit the 3 cards exactly */
-  width: fit-content;
-  /* 2. But never exceed the screen width (so mobile still scrolls) */
-  max-width: 100%;
-  /* 3. Center the container in the middle of the page */
-  margin: 0 auto;
-}
-.services-swiper::-webkit-scrollbar { display: none; }
-
-.service-tile {
-  min-width: 220px;
-  max-width: 220px;
-  background: #FFFFFF;
-  border-radius: 20px;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  scroll-snap-align: center;
-  flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.03);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.service-tile::before {
-  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-  background: linear-gradient(90deg, #D4AF37 0%, #F0D078 100%);
-  opacity: 0; transition: opacity 0.3s;
-}
-
-.service-tile:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
-  border-color: rgba(212, 175, 55, 0.2);
-}
-.service-tile:hover::before { opacity: 1; }
-
-.tile-icon { font-size: 2.5rem; margin-bottom: 1rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); transition: transform 0.3s; }
-.service-tile:hover .tile-icon { transform: scale(1.1) rotate(-5deg); }
-.tile-name { font-size: 1.1rem; font-weight: 700; color: #1F2937; margin-bottom: 0.25rem; }
-.tile-meta { font-size: 0.85rem; color: #6B7280; margin-bottom: 1rem; }
-.tile-price { background: rgba(212, 175, 55, 0.1); color: #D4AF37; font-weight: 700; padding: 0.5rem 1rem; border-radius: 50px; font-size: 1rem; }
-
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-
-@media (max-width: 900px) {
-  .business-hub-card {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1px auto;
+/* Large Screens */
+@media (min-width: 1400px) {
+  .row-2.services-row,
+  .row-3.products-row {
+    height: 300px; /* Slightly taller on huge screens */
   }
-  .hub-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.3) 50%, transparent 100%); }
-  .hub-section { padding: 1.5rem; }
-  .contact-grid { grid-template-columns: 1fr auto; }
 }
 
-@media (max-width: 600px) {
-  .main-content-section { height: auto; min-height: 100dvh; padding: 2rem 0; }
-  .main-content-container { justify-content: flex-start; }
+/* Tablet & Mobile */
+@media (max-width: 1024px) {
+  .main-content-section {
+    padding: 3rem 1.5rem;
+  }
   
-  /* Hide arrows on mobile (Use Swipe) */
-  .swiper-nav { display: none !important; }
-  .service-tile { min-width: 200px; }
+  .content-wrapper {
+    gap: 3rem;
+  }
+
+  /* Swipers stay sleek */
+  .row-2.services-row,
+  .row-3.products-row {
+    height: 260px;
+  }
 }
 
-.waze-logo-btn svg {
-  width: 36px; /* Increased from 32px for better visibility */
-  height: 36px;
-  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+@media (max-width: 768px) {
+  .main-content-section {
+    padding: 2rem 1rem;
+  }
+  
+  .content-wrapper {
+    gap: 2.5rem;
+  }
+  
+  /* Hub stacks vertically on mobile, so auto height is perfect */
+  .row-1.hub-row {
+    height: auto; 
+  }
 }
-

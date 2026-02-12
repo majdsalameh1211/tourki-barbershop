@@ -8,17 +8,17 @@
   top: 0;
   z-index: 1000;
   width: 100%;
-  
+
   /* Advanced Glassmorphism */
   background: rgba(31, 41, 55, 0.85);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  
+
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 
+  box-shadow:
     0 4px 30px rgba(0, 0, 0, 0.1),
     0 1px 3px rgba(0, 0, 0, 0.05);
-    
+
   transition: all 0.3s ease;
 }
 
@@ -26,7 +26,8 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
-  height: 80px; /* Slightly taller for elegance */
+  height: 80px;
+  /* Slightly taller for elegance */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -64,14 +65,15 @@
   letter-spacing: 1px;
   color: #FFFFFF;
   line-height: 1;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .brand-tagline {
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 2.5px;
-  color: #D4AF37; /* Gold accent */
+  color: #D4AF37;
+  /* Gold accent */
   text-transform: uppercase;
   margin-top: 2px;
 }
@@ -92,7 +94,8 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.6rem 1rem;
-  border-radius: 50px; /* Pill shape */
+  border-radius: 50px;
+  /* Pill shape */
   cursor: pointer;
   transition: all 0.3s ease;
   color: #E5E7EB;
@@ -127,27 +130,27 @@
   top: calc(100% + 12px);
   right: 0;
   width: 160px;
-  
+
   background: rgba(31, 41, 55, 0.95);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  
+
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  
+
   /* Animation State: Hidden */
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px) scale(0.95);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  box-shadow: 
-    0 10px 40px rgba(0,0,0,0.2),
-    0 0 0 1px rgba(255,255,255,0.05);
-  
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+
   z-index: 100;
 }
 
@@ -162,20 +165,21 @@
 .lang-option {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Space for checkmark */
+  justify-content: space-between;
+  /* Space for checkmark */
   width: 100%;
   padding: 0.75rem 1rem;
-  
+
   background: transparent;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  
+
   color: #E5E7EB;
   font-size: 0.95rem;
   font-weight: 500;
   text-align: left;
-  
+
   transition: all 0.2s ease;
 }
 
@@ -206,23 +210,26 @@
     height: 70px;
     padding: 0 1rem;
   }
-  
+
   /* 1. CHANGE THIS: We enabled the text display */
   .brand-text {
-    display: flex; /* Was 'none' before */
+    display: flex;
+    /* Was 'none' before */
   }
 
   /* 2. SCALE DOWN: Make text smaller to fit phone screens */
   .brand-main {
-    font-size: 1.1rem; /* Smaller font */
+    font-size: 1.1rem;
+    /* Smaller font */
   }
-  
+
   .brand-tagline {
-    font-size: 0.5rem; /* Smaller tagline */
+    font-size: 0.5rem;
+    /* Smaller tagline */
     letter-spacing: 1.5px;
   }
 
-  
+
   .brand-icon {
     width: 20px;
     height: 20px;
@@ -234,43 +241,52 @@
   }
 }
 
+
 /* ============================================
-   LOGO CONTAINER STYLING
+   LOGO CONTAINER STYLING - FIXED SIZE
    ============================================ */
 
 .brand-logo-container {
+  /* 1. Set explicit height to match the target design (~45-50px) */
+  height: 48px;
+  
+  /* 2. Allow width to shrink-wrap the image content */
+  width: fit-content;
+  
+  /* 3. Use Flexbox to center the image perfectly */
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 12px;
-  margin-right: 0.75rem;
-  border-radius: 12px;
   
-  /* Dark background with subtle gold accent */
+  /* 4. Minimal padding so border hugs the image */
+  padding: 3px;
+  
+  margin-right: 12px;
+  border-radius: 8px; /* Slightly sharper corners like the target */
+  
   background: rgba(26, 20, 16, 0.6);
   border: 1px solid rgba(212, 175, 55, 0.25);
   
+  /* Prevents the box from growing unexpectedly */
+  box-sizing: border-box; 
   transition: all 0.3s ease;
 }
 
-.navbar-brand:hover .brand-logo-container {
-  background: rgba(26, 20, 16, 0.8);
-  border-color: rgba(212, 175, 55, 0.4);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
-}
-
 .navbar-logo-img {
-  height: 50px;
+  /* 5. Force image to touch the top/bottom of the container padding */
+  height: 100%; 
   width: auto;
+  
+  /* Removes potential hidden gaps */
+  display: block; 
   object-fit: contain;
-  filter: brightness(1.1) contrast(1.05);
+
+  scale : calc(1.2);
 }
 
 @media (max-width: 768px) {
   .brand-logo-container {
-    padding: 3px 10px;
-  }
-  .navbar-logo-img {
-    height: 40px;
+    height: 40px; /* Smaller on mobile */
+    padding: 2px;
   }
 }
