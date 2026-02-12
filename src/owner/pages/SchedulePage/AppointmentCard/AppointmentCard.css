@@ -94,3 +94,16 @@
   border: 1px solid rgba(212, 175, 55, 0.1);
   animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+
+/* At the bottom of AppointmentCard.css */
+@media (max-width: 768px) {
+  .card-viewer-wrapper {
+    margin-top: 2.5rem;   /* Spacing from the action bar */
+    margin-bottom: 2.5rem; /* Spacing between cards if multiple are shown */
+  }
+
+  .data-row {
+    margin-bottom: 1.5rem; /* Spacing between info rows inside the card */
+  }
+}

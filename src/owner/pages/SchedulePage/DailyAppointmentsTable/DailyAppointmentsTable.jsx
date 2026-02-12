@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import AddAppointmentForm from '../FormsComponents/AddAppointmentForm';
 import './DailyAppointmentsTable.css';
 
 const DailyAppointmentsTable = ({ date, appointments, onSelect, onBack }) => {
   // 1. STATE
-  const [data, setData] = useState(appointments || [
-    { id: 1, time: '10:00', name: 'ישראל ישראלי', phone: '050-1234567', whatsapp: true },
-    { id: 2, time: '10:30', name: 'דני דנינו', phone: '052-9876543', whatsapp: false },
-    { id: 3, time: '11:00', name: 'יוסי כהן', phone: '054-5555555', whatsapp: true },
-    { id: 4, time: '11:30', name: 'רוני לוי', phone: '052-1112222', whatsapp: true },
-  ]);
+// Initialize state with the appointments prop which comes from Mockappointments.json
+  const [data, setData] = useState(appointments || []);
+
+  // Sync state if the appointments prop changes (e.g., when selecting a new date)
+  useEffect(() => {
+    if (appointments) {
+      setData(appointments);
+    }
+  }, [appointments]);
 
   const [isSelectMode, setIsSelectMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState(new Set());

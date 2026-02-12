@@ -216,8 +216,20 @@
   .ab-btn { flex: 1; justify-content: center; }
 
   /* Table Cards */
+/* Table Cards */
   .table-header-row { display: none; }
-  .appt-row { display: flex; flex-direction: column; gap: 8px; padding: 1rem; border-bottom: 1px solid #E5E7EB; position: relative; }
+  .appt-row { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; /* Increased internal gap */
+    padding: 1.25rem; 
+    border: 1px solid #E5E7EB; /* Changed from border-bottom to full border */
+    border-radius: 12px; /* Rounded corners for card look */
+    margin-bottom: 1.5rem; /* Increased spacing between cards */
+    position: relative; 
+    background: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02); /* Subtle shadow for depth */
+  }
   .appt-row.selection-mode { display: flex; }
 
   .col-time { font-size: 1.1rem; color: #D4AF37; margin-bottom: 4px; }
