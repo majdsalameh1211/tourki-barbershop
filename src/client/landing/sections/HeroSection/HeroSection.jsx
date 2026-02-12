@@ -55,9 +55,7 @@ const HeroSection = () => {
           <button className="hero-cta-button" onClick={handleBookNow}>
             <span className="button-text">{t('hero.bookBtn')}</span>
             <span className="button-arrow">
-              {/* Flip arrow for RTL languages if needed, usually CSS handles this, 
-                  but for simplicity we keep the arrow direction or use a neutral icon */}
-              {document.dir === 'rtl' ? '←' : '→'}
+
             </span>
             <span className="button-shimmer"></span>
           </button>
